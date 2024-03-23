@@ -57,7 +57,9 @@ class Controller extends BaseController
                 return $this->checkAdminAuthorizations($model, $data, $action);
             case 'user':
                 return $this->checkUserAuthorizations($model, $data, $action);
-            case 'department'||'udepartment':
+            case 'department':
+                return $this->checkDepartmentAuthorizations($model, $data, $action);
+            case 'udepartment':
                 return $this->checkDepartmentAuthorizations($model, $data, $action);
             case 'school':
                 return $this->checkSchoolAuthorizations($model, $data, $action);
