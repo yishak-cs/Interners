@@ -67,8 +67,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ (request()->is('staff/staff*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (request()->is('staff/staff*')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('school/staff*')) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ (request()->is('school/staff*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Staffs
