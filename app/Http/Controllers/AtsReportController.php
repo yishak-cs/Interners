@@ -21,40 +21,38 @@ class AtsReportController extends Controller
         $userType = $user->type;
         $entityId = null;
         $entityColumn = null;
-        $viewPath = null;
+        $viewPath = 'pages.' . $userType . '.reports.application'; 
 
+        // Determine the entity ID and column based on the user type
         if ($userType === 'school') {
             $entityId = $user->school->id;
             $entityColumn = 'school_id';
-            $viewPath = 'pages.school.reports.application';
         } elseif ($userType === 'company') {
             $entityId = $user->company->id;
             $entityColumn = 'company_id';
-            $viewPath = 'pages.company.reports.application';
-        } elseif ($userType === 'department') {
+        } elseif ($userType === 'department' || $userType === 'udepartment') {
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
-            $viewPath = 'pages.department.reports.application';
-        }elseif ($userType === 'udepartment') {
-            $entityId = $user->department->id;
-            $entityColumn = 'department_id';
-            $viewPath = 'pages.udepartment.reports.application';
         }
 
-        $internships = Internship::where($entityColumn, $entityId)->get();
+        // Fetch internships and their applications based on the user type
+        if ($userType === 'school' || $userType === 'company') {
+            // Fetch internships posted by departments within the school or company
+            $internships = Internship::whereHas('department', function ($query) use ($entityColumn, $entityId) {
+                $query->where($entityColumn, $entityId);
+            })->with('userApplications')->get();
+        } else {
+            // Fetch internships directly for 'department' or 'udepartment'
+            $internships = Internship::where('department_id', $entityId)->with('userApplications')->get();
+        }
 
-        $applications = UserApplication::whereIn('internship_id', function ($query) use ($entityColumn, $entityId) {
-            $query->select('id')
-                ->from('internships')
-                ->where($entityColumn, $entityId);
-        });
+        // Apply filters to the applications
+        $applications = $internships->pluck('userApplications')->flatten(); // Flatten the collection of applications
 
-        /**
-         * filters array
-         *
-         * @var array $filters
-         */
-        $filters = ($request->all()) ? $request->all() : [];
+        // Collect all filters from the request
+        $filters = $request->all();
+
+        // Validate the request data
         $request->validate([
             'status' => 'nullable|in:0,1,2',
             'start_date' => 'nullable|date_format:Y-m-d|before:end_date',
@@ -63,45 +61,24 @@ class AtsReportController extends Controller
             'date' => 'nullable|in:desc,asc',
         ]);
 
-        // add filter for status
-        if ($request->status != null) {
+        // Apply each filter to the applications collection
+        if ($request->filled('status')) {
             $applications = $applications->where('status', $request->status);
         }
-
-        // add filter for internship
-        if ($request->internship != null) {
+        if ($request->filled('internship')) {
             $applications = $applications->where('internship_id', $request->internship);
         }
-
-        // add filter for start and end date
-        if ($request->start_date != null && $request->end_date != null) {
+        if ($request->filled('start_date') && $request->filled('end_date')) {
             $applications = $applications->whereBetween('created_at', [$request->start_date, $request->end_date]);
         }
-
-        // add filter for date order
-        if ($request->date != null) {
-            $applications = $applications->orderBy('created_at', $request->date);
+        if ($request->filled('date')) {
+            $applications = $applications->sortBy('created_at', SORT_REGULAR, $request->date === 'desc');
         }
 
-        // get filtered or unfiltered object
-        $applications = $applications->get();
+        // Determine if any filters have been activated
+        $isFilterActivated = collect($filters)->filter()->isNotEmpty();
 
-        /**
-         * check if filter is applied
-         *
-         * @var bool $isFilterActivated
-         */
-        $isFilterActivated = false;
-        if (count($filters) > 0) {
-            foreach ($filters as $key => $filter) {
-                if ($filter != null) $isFilterActivated = true;
-            }
-        }
-
-        if (!$isFilterActivated) {
-            $applications = [];
-        }
-
+        // Return the view with the necessary data
         return view($viewPath, [
             'isFilterActivated' => $isFilterActivated,
             'filters' => $filters,
@@ -109,6 +86,7 @@ class AtsReportController extends Controller
             'applications' => $applications
         ]);
     }
+
     /**
      * Internship listing for school, company, or department.
      *
@@ -135,7 +113,7 @@ class AtsReportController extends Controller
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
             $viewPath = 'pages.department.reports.internship';
-        }elseif ($userType === 'udepartment') {
+        } elseif ($userType === 'udepartment') {
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
             $viewPath = 'pages.udepartment.reports.internship';
