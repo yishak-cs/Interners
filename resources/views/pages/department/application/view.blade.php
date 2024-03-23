@@ -168,7 +168,7 @@
                                                     {{ $user->information->university ? $user->information->university : '-' }}
                                                 </dd>
                                                 @if ($user->information->degree)
-                                                    <dt class="col-sm-4">School: </dt>
+                                                    <dt class="col-sm-4">University: </dt>
                                                     <dd class="col-sm-8">
                                                         {{ $user->information->degree }}
                                                     </dd>

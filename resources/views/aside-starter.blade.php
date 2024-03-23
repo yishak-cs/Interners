@@ -13,7 +13,7 @@
                 <img src="{{ asset('assets/dist/img/user.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">Yisak Thomas </a>
             </div>
         </div>
 
@@ -42,9 +42,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <i class="nav-icon fas fa-university"></i>
                         <p>
-                            Schools
+                        Universities
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -52,13 +52,13 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-plus nav-icon"></i>
-                                <p>Add School</p>
+                                <p>Add University</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-list nav-icon"></i>
-                                <p>Schools List</p>
+                                <p>Universities List</p>
                             </a>
                         </li>
                     </ul>

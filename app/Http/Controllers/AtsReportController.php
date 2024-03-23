@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class AtsReportController extends Controller
 {
     /**
-     * Application listing for school, company, or department.
+     * Application listing for university, company, or department.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
@@ -24,20 +24,20 @@ class AtsReportController extends Controller
         $viewPath = 'pages.' . $userType . '.reports.application'; 
 
         // Determine the entity ID and column based on the user type
-        if ($userType === 'school') {
-            $entityId = $user->school->id;
-            $entityColumn = 'school_id';
+        if ($userType === 'university') {
+            $entityId = $user->university->id;
+            $entityColumn = 'university_id';
         } elseif ($userType === 'company') {
             $entityId = $user->company->id;
             $entityColumn = 'company_id';
-        } elseif ($userType === 'department' || $userType === 'udepartment') {
+        } elseif ($userType === 'department' || $userType === 'faculty') {
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
         }
 
         // Fetch internships and their applications based on the user type
-        if ($userType === 'school' || $userType === 'company') {
-            // Fetch internships posted by departments within the school or company
+        if ($userType === 'university' || $userType === 'company') {
+            // Fetch internships posted by departments within the university or company
             $internships = Internship::whereHas('department', function ($query) use ($entityColumn, $entityId) {
                 $query->where($entityColumn, $entityId);
             })->with('userApplications')->get();
@@ -88,7 +88,7 @@ class AtsReportController extends Controller
     }
 
     /**
-     * Internship listing for school, company, or department.
+     * Internship listing for university, company, or department.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
@@ -101,10 +101,10 @@ class AtsReportController extends Controller
         $entityColumn = null;
         $viewPath = null;
 
-        if ($userType === 'school') {
-            $entityId = $user->school->id;
-            $entityColumn = 'school_id';
-            $viewPath = 'pages.school.reports.internship';
+        if ($userType === 'university') {
+            $entityId = $user->university->id;
+            $entityColumn = 'university_id';
+            $viewPath = 'pages.university.reports.internship';
         } elseif ($userType === 'company') {
             $entityId = $user->company->id;
             $entityColumn = 'company_id';
@@ -113,13 +113,13 @@ class AtsReportController extends Controller
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
             $viewPath = 'pages.department.reports.internship';
-        } elseif ($userType === 'udepartment') {
+        } elseif ($userType === 'faculty') {
             $entityId = $user->department->id;
             $entityColumn = 'department_id';
-            $viewPath = 'pages.udepartment.reports.internship';
+            $viewPath = 'pages.faculty.reports.internship';
         }
 
-        if ($userType === 'school' || $userType === 'company') {
+        if ($userType === 'university' || $userType === 'company') {
             $internships = Internship::whereIn('department_id', function ($query) use ($entityColumn, $entityId) {
                 $query->select('id')
                     ->from('departments')

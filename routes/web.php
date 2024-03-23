@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InternController;
-use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AtsReportController;
@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\MessageRoomController;
-use App\Http\Controllers\SDepartmentController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\UserInformationController;
 
@@ -37,15 +37,15 @@ Route::middleware(['auth', 'verified', 'user-access:admin'])->group(function () 
     Route::prefix('/admin')->group(function () {
         Route::get('/home', [DashboardController::class, 'index'])->name('admin.home');
 
-        // admin/school routes
-        Route::prefix('/school')->group(function () {
-            Route::get('/add', [SchoolController::class, 'create'])->name('admin.school.add');
-            Route::post('/add', [SchoolController::class, 'store'])->name('admin.school.store');
-            Route::get('/list', [SchoolController::class, 'index'])->name('admin.school.list');
-            Route::get('/view/{school}', [SchoolController::class, 'show'])->name('admin.school.view');
-            Route::get('/edit/{school}', [SchoolController::class, 'edit'])->name('admin.school.edit');
-            Route::post('/update/{school}', [SchoolController::class, 'update'])->name('admin.school.update');
-            Route::get('/delete/{school}', [SchoolController::class, 'destroy'])->name('admin.school.delete');
+        // admin/university routes
+        Route::prefix('/university')->group(function () {
+            Route::get('/add', [UniversityController::class, 'create'])->name('admin.university.add');
+            Route::post('/add', [UniversityController::class, 'store'])->name('admin.university.store');
+            Route::get('/list', [UniversityController::class, 'index'])->name('admin.university.list');
+            Route::get('/view/{university}', [UniversityController::class, 'show'])->name('admin.university.view');
+            Route::get('/edit/{university}', [UniversityController::class, 'edit'])->name('admin.university.edit');
+            Route::post('/update/{university}', [UniversityController::class, 'update'])->name('admin.university.update');
+            Route::get('/delete/{university}', [UniversityController::class, 'destroy'])->name('admin.university.delete');
         });
         // admin/company routes
         Route::prefix('/company')->group(function () {
@@ -145,127 +145,127 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
 });
 /** Department Route End */
 
-/** School Department Route Start */
-Route::middleware(['auth', 'verified', 'user-access:udepartment'])->group(function () {
-    Route::prefix('/udepartment')->group(function () {
-        Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('udepartment.home');
+/** university Department Route Start */
+Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function () {
+    Route::prefix('/faculty')->group(function () {
+        Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
 
-        // School department/internship routes
+        // university department/internship routes
         Route::prefix('/internship')->group(function () {
-            Route::get('/add', [InternshipController::class, 'create'])->name('udepartment.internship.add');
-            Route::post('/add', [InternshipController::class, 'store'])->name('udepartment.internship.store');
-            Route::get('/list', [InternshipController::class, 'departmentIndex'])->name('udepartment.internship.list');
-            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('udepartment.internship.view');
-            Route::get('/edit/{internship}', [InternshipController::class, 'edit'])->name('udepartment.internship.edit');
-            Route::post('/update/{internship}', [InternshipController::class, 'update'])->name('udepartment.internship.update');
-            Route::post('/updatepre/{internship}', [InternshipController::class, 'updatePrerequisite'])->name('udepartment.internship.updatePre');
-            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('udepartment.internship.delete');
-            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('udepartment.internship.start');
+            Route::get('/add', [InternshipController::class, 'create'])->name('faculty.internship.add');
+            Route::post('/add', [InternshipController::class, 'store'])->name('faculty.internship.store');
+            Route::get('/list', [InternshipController::class, 'departmentIndex'])->name('faculty.internship.list');
+            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('faculty.internship.view');
+            Route::get('/edit/{internship}', [InternshipController::class, 'edit'])->name('faculty.internship.edit');
+            Route::post('/update/{internship}', [InternshipController::class, 'update'])->name('faculty.internship.update');
+            Route::post('/updatepre/{internship}', [InternshipController::class, 'updatePrerequisite'])->name('faculty.internship.updatePre');
+            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('faculty.internship.delete');
+            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('faculty.internship.start');
         });
 
-        // School department/application route
+        // university department/application route
         Route::prefix('/application')->group(function () {
-            Route::get('/list', [UserApplicationController::class, 'departmentIndex'])->name('udepartment.application.list');
-            Route::get('/view/{userapplication}', [UserApplicationController::class, 'show'])->name('udepartment.application.view');
-            Route::get('/accept/{userapplication}', [UserApplicationController::class, 'acceptApplication'])->name('udepartment.application.accept');
-            Route::get('/reject/{userapplication}', [UserApplicationController::class, 'rejectApplication'])->name('udepartment.application.reject');
-            Route::get('/reset/{userapplication}', [UserApplicationController::class, 'resetApplication'])->name('udepartment.application.reset');
-            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('udepartment.application.delete');
-            Route::get('/filter', [UserApplicationController::class, 'filter'])->name('udepartment.application.filter');
+            Route::get('/list', [UserApplicationController::class, 'departmentIndex'])->name('faculty.application.list');
+            Route::get('/view/{userapplication}', [UserApplicationController::class, 'show'])->name('faculty.application.view');
+            Route::get('/accept/{userapplication}', [UserApplicationController::class, 'acceptApplication'])->name('faculty.application.accept');
+            Route::get('/reject/{userapplication}', [UserApplicationController::class, 'rejectApplication'])->name('faculty.application.reject');
+            Route::get('/reset/{userapplication}', [UserApplicationController::class, 'resetApplication'])->name('faculty.application.reset');
+            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('faculty.application.delete');
+            Route::get('/filter', [UserApplicationController::class, 'filter'])->name('faculty.application.filter');
         });
 
-        // School department/profile routes
+        // university department/profile routes
         Route::prefix('/profile')->group(function () {
-            Route::get('/', [UserController::class, 'profile'])->name('udepartment.profile');
-            Route::post('/setting', [UserInformationController::class, 'store'])->name('udepartment.profile.setting');
-            Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('udepartment.profile.password');
+            Route::get('/', [UserController::class, 'profile'])->name('faculty.profile');
+            Route::post('/setting', [UserInformationController::class, 'store'])->name('faculty.profile.setting');
+            Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('faculty.profile.password');
         });
 
-        // school department/intern routes
+        // university department/intern routes
         Route::prefix('/intern')->group(function () {
-            Route::get('/list', [InternController::class, 'departmentIndex'])->name('udepartment.intern.list');
-            Route::get('/view/{intern}', [InternController::class, 'show'])->name('udepartment.intern.view');
-            Route::get('/delete/{intern}', [InternController::class, 'destroy'])->name('udepartment.intern.delete');
+            Route::get('/list', [InternController::class, 'departmentIndex'])->name('faculty.intern.list');
+            Route::get('/view/{intern}', [InternController::class, 'show'])->name('faculty.intern.view');
+            Route::get('/delete/{intern}', [InternController::class, 'destroy'])->name('faculty.intern.delete');
         });
 
-        // school department/students routes
+        // university department/students routes
         Route::prefix('/students')->group(function () {
-            Route::get('/list', [StudentController::class, 'index'])->name('udepartment.student.list');
-            Route::get('/view/{student}', [StudentController::class, 'show'])->name('udepartment.student.view');
-            Route::get('/delete/{student}', [StudentController::class, 'destroy'])->name('udepartment.student.delete');
+            Route::get('/list', [StudentController::class, 'index'])->name('faculty.student.list');
+            Route::get('/view/{student}', [StudentController::class, 'show'])->name('faculty.student.view');
+            Route::get('/delete/{student}', [StudentController::class, 'destroy'])->name('faculty.student.delete');
         });
 
-        // School department/reports route
+        // university department/reports route
         Route::prefix('/reports')->group(function () {
-            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('udepartment.reports.application');
-            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('udepartment.reports.internship');
+            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('faculty.reports.application');
+            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('faculty.reports.internship');
         });
     });
 });
-/** School Department Route End */
+/** university Department Route End */
 
 
-/** School Route Start */
-Route::middleware(['auth', 'verified', 'user-access:school'])->group(function () {
-    Route::prefix('/school')->group(function () {
-        Route::get('/home', [DashboardController::class, 'schoolIndex'])->name('school.home');
+/** university Route Start */
+Route::middleware(['auth', 'verified', 'user-access:university'])->group(function () {
+    Route::prefix('/university')->group(function () {
+        Route::get('/home', [DashboardController::class, 'universityIndex'])->name('university.home');
 
-        // school/department routes
-        Route::prefix('/department')->group(function () {
-            Route::get('/add', [SDepartmentController::class, 'create'])->name('school.department.add');
-            Route::post('/add', [SDepartmentController::class, 'store'])->name('school.department.store');
-            Route::get('/list', [SDepartmentController::class, 'schoolIndex'])->name('school.department.list');
-            Route::get('/view/{department}', [SDepartmentController::class, 'show'])->name('school.department.view');
-            Route::get('/edit/{department}', [SDepartmentController::class, 'edit'])->name('school.department.edit');
-            Route::post('/update/{department}', [SDepartmentController::class, 'update'])->name('school.department.update');
-            Route::get('/delete/{department}', [SDepartmentController::class, 'destroy'])->name('school.department.delete');
+        // university/department routes
+        Route::prefix('/faculty')->group(function () {
+            Route::get('/add', [FacultyController::class, 'create'])->name('university.faculty.add');
+            Route::post('/add', [FacultyController::class, 'store'])->name('university.faculty.store');
+            Route::get('/list', [FacultyController::class, 'universityIndex'])->name('university.faculty.list');
+            Route::get('/view/{faculty}', [FacultyController::class, 'show'])->name('university.faculty.view');
+            Route::get('/edit/{faculty}', [FacultyController::class, 'edit'])->name('university.faculty.edit');
+            Route::post('/update/{faculty}', [FacultyController::class, 'update'])->name('university.faculty.update');
+            Route::get('/delete/{faculty}', [FacultyController::class, 'destroy'])->name('university.faculty.delete');
         });
 
-        // school/internship route
+        // university/internship route
         Route::prefix('/internship')->group(function () {
-            Route::get('/list', [InternshipController::class, 'schoolIndex'])->name('school.internship.list');
-            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('school.internship.view');
-            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('school.internship.start');
-            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('school.internship.delete');
+            Route::get('/list', [InternshipController::class, 'universityIndex'])->name('university.internship.list');
+            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('university.internship.view');
+            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('university.internship.start');
+            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('university.internship.delete');
         });
 
-        // school/application route
+        // university/application route
         Route::prefix('/application')->group(function () {
-            Route::get('/list', [UserApplicationController::class, 'schoolIndex'])->name('school.application.list');
-            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('school.application.delete');
+            Route::get('/list', [UserApplicationController::class, 'universityIndex'])->name('university.application.list');
+            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('university.application.delete');
         });
 
-        // school/profile routes
+        // university/profile routes
         Route::prefix('/profile')->group(function () {
-            Route::get('/', [UserController::class, 'profile'])->name('school.profile');
-            Route::post('/setting', [UserInformationController::class, 'store'])->name('school.profile.setting');
-            Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('school.profile.password');
+            Route::get('/', [UserController::class, 'profile'])->name('university.profile');
+            Route::post('/setting', [UserInformationController::class, 'store'])->name('university.profile.setting');
+            Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('university.profile.password');
         });
 
-        // school/intern routes
+        // university/intern routes
         Route::prefix('/intern')->group(function () {
-            Route::get('/list', [InternController::class, 'schoolIndex'])->name('school.intern.list');
-            Route::get('/view/{intern}', [InternController::class, 'show'])->name('school.intern.view');
+            Route::get('/list', [InternController::class, 'universityIndex'])->name('university.intern.list');
+            Route::get('/view/{intern}', [InternController::class, 'show'])->name('university.intern.view');
         });
 
-        // school/reports route
+        // university/reports route
         Route::prefix('/reports')->group(function () {
-            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('school.reports.application');
-            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('school.reports.internship');
+            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('university.reports.application');
+            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('university.reports.internship');
         });
-        // school/staff routes
+        // university/staff routes
         Route::prefix('/staff')->group(function () {
-            Route::get('/add', [UserController::class, 'staffCreate'])->name('school.staff.add');
-            Route::post('/add', [UserController::class, 'staffStore'])->name('school.staff.store');
-            Route::get('/list', [UserController::class, 'staffIndex'])->name('school.staff.list');
-            Route::get('/view/{user}', [UserController::class, 'staffShow'])->name('school.staff.view');
-            Route::get('/edit/{user}', [UserController::class, 'staffEdit'])->name('school.staff.edit');
-            Route::post('/update/{user}', [UserController::class, 'staffUpdate'])->name('school.staff.update');
-            Route::get('/delete/{user}', [UserController::class, 'destroy'])->name('school.staff.delete');
+            Route::get('/add', [UserController::class, 'staffCreate'])->name('university.staff.add');
+            Route::post('/add', [UserController::class, 'staffStore'])->name('university.staff.store');
+            Route::get('/list', [UserController::class, 'staffIndex'])->name('university.staff.list');
+            Route::get('/view/{user}', [UserController::class, 'staffShow'])->name('university.staff.view');
+            Route::get('/edit/{user}', [UserController::class, 'staffEdit'])->name('university.staff.edit');
+            Route::post('/update/{user}', [UserController::class, 'staffUpdate'])->name('university.staff.update');
+            Route::get('/delete/{user}', [UserController::class, 'destroy'])->name('university.staff.delete');
         });
     });
 });
-/** School Route End */
+/** University Route End */
 
 /** Company Route Start */
 Route::middleware(['auth', 'verified', 'user-access:company'])->group(function () {
@@ -347,7 +347,7 @@ Route::middleware(['auth', 'verified', 'user-access:user'])->group(function () {
             Route::post('/setting/{user}', [UserInformationController::class, 'store'])->name('user.profile.setting');
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('user.profile.password');
             Route::post('/upload', [UserInformationController::class, 'upload'])->name('user.profile.upload');
-            Route::get('/get-departments/{schoolId}', [SchoolController::class, 'getDepartments'])->name('user.get-departments');
+            Route::get('/get-departments/{universityId}', [UniversityController::class, 'getDepartments'])->name('user.get-departments');
         });
 
         // user/application routes

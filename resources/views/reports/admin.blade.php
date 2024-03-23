@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="page-header" style="padding: 10px;">
-                        Jimma University
+                        MoSHE
                         <small class="float-right">Date: {{ \Carbon\Carbon::parse($ats_report->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y')  }}</small>
                     </h2>
                 </div>
@@ -75,7 +75,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>School</th>
+                                        <th>University</th>
                                         <th>Department</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
@@ -90,7 +90,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ ucwords($internship->title) }}</td>
-                                        <td>{{ ucwords($internship->department->school->name) }}</td>
+                                        <td>{{ ucwords($internship->department->university->name) }}</td>
                                         <td>{{ ucwords($internship->department->name) }}</td>
                                         <td>{{ \Carbon\Carbon::parse($internship->start_date)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($internship->end_date)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>

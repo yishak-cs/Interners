@@ -63,8 +63,8 @@
                                                 class="form-control @error('head_id') is-invalid @enderror select2"
                                                 autofocus>
                                                 <option value="">None for now</option>
-                                                @foreach ($school_head_list as $school_head)
-                                                    <option value="{{ $school_head->id }}">{{ $school_head->getName() }}
+                                                @foreach ($company_head_list as $company_head)
+                                                    <option value="{{ $company_head->id }}">{{ $company_head->getName() }}
                                                     </option>
                                                 @endforeach
                                             </select>

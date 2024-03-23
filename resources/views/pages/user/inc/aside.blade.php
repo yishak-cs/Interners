@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('user.application.list') }}" class="nav-link {{ (request()->is('user/internship/apply*') || request()->is('user/application*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-paper-plane"></i>
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Applications
                         </p>

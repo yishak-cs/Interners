@@ -1,7 +1,7 @@
-@extends('pages.school.inc.app')
+@extends('pages.university.inc.app')
 
 @section('header')
-    @include('layout.header', ['title' => 'School | Internship | View'])
+    @include('layout.header', ['title' => 'University | Internship | View'])
 @endsection
 
 @section('content-header')

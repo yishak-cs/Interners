@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\School;
+use App\Models\University;
 use App\Models\Configs;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -66,8 +66,8 @@ class UserController extends Controller
     public function profileSettings(): View
     {
     
-            $schools = School::get();
-            return view('pages.' . $this->current_route . '.profile.setting', ['schools' => $schools])->with(['detail_page' => true]);
+            $universities = University::get();
+            return view('pages.' . $this->current_route . '.profile.setting', ['universities' => $universities])->with(['detail_page' => true]);
         
     }
     
@@ -247,7 +247,7 @@ class UserController extends Controller
         $staffTypeMap = [
             'admin' => 1,
             'company' => 2,
-            'school' => 3,
+            'university' => 3,
         ];
         $staffType = $staffTypeMap[$this->current_route] ?? null;
 

@@ -55,7 +55,7 @@ class CompanyController extends Controller
          */
         $company_head_list = User::where('is_staff', '1')->where('type', '0')->get();
 
-        return view('pages.admin.company.add', ['school_head_list'=>$company_head_list]);
+        return view('pages.admin.company.add', ['company_head_list'=>$company_head_list]);
     }
 
     /**

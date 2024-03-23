@@ -38,8 +38,8 @@ class AtsReport extends Model
     {
         if($this->owner_type == 'admin'){
             return $this->belongsTo(User::class, 'owner', 'id')->withTrashed();
-        }else if($this->owner_type == 'school'){
-            return $this->belongsTo(School::class, 'owner', 'id')->withTrashed();
+        }else if($this->owner_type == 'university'){
+            return $this->belongsTo(University::class, 'owner', 'id')->withTrashed();
         }else if($this->owner_type == 'department'){
             return $this->belongsTo(Department::class, 'owner', 'id')->withTrashed();
         }else{

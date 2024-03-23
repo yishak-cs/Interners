@@ -224,7 +224,7 @@
                 doc.content[1] = [{
                         alignment: 'justify',
                         columns: [{
-                                text: 'Jimma University',
+                                text: 'MoSHE',
                                 fontSize: 25,
                                 bold: true
                             },

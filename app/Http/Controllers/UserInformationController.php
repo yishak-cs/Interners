@@ -67,7 +67,7 @@ class UserInformationController extends Controller
             $data = new UserInformation($request->all());
             // saving new instance in db and returning
             if ($data->save() && $user->update([
-                'school_id' => ($request->get('school')) ?? $user->school_id,
+                'university_id' => ($request->get('university')) ?? $user->university_id,
                 'department_id'=> ($request->get('department')) ?? $user->department_id,
             ])) {
                 return redirect()->route($this->current_route . '.profile')->with(['success' => "User Information created successfully", 'setting_page' => true]);
@@ -103,7 +103,6 @@ class UserInformationController extends Controller
             'city' => 'string|nullable',
             'university' => 'string|nullable',
             'department' => 'string|nullable',
-            'degree' => 'string|nullable',
             'about_me' => 'string|nullable',
         ]);
 
@@ -113,7 +112,7 @@ class UserInformationController extends Controller
         }
         // updating instance and returning
         if ($user_information->update($request->all()) && $user->update([
-            'school_id' => ($request->get('school')) ?? $user->school_id,
+            'university_id' => ($request->get('university')) ?? $user->university_id,
             'department_id'=> ($request->get('department')) ?? $user->department_id,
         ])) {
             return redirect()->route($this->current_route . '.profile')->with(['success' => "User Information updated successfully", 'setting_page' => true]);

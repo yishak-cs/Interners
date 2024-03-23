@@ -47,8 +47,8 @@
     </div>
     <div class="col-md-6">
         <dl  class="row">
-            <dt class="col-sm-4">School: </dt>
-            <dd class="col-sm-8">{{ (Auth::user()->userSchool->name) ?? '-' }}</dd>
+            <dt class="col-sm-4">University: </dt>
+            <dd class="col-sm-8">{{ (Auth::user()->userUniversity->name) ?? '-' }}</dd>
             <dt class="col-sm-4">Department: </dt>
             <dd class="col-sm-8">{{ (Auth::user()->userDepartment->name) ?? '-' }}</dd>
             <dt class="col-sm-4">Registered Date: </dt>

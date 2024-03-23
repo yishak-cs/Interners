@@ -9,8 +9,13 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="/" class="navbar-brand">
-                    <span class="brand-text font-weight-light">Jimma University</em></span>
+            <img class="logo-footer shadow-lg rounded-circle" 
+     src="assets/dist/img/logom.png" 
+     alt="Logo Image"
+
+                    style="height: 2rem; align-items: center;"> 
+                <a href="/" class="navbar-brand"> 
+                    <span class="brand-text font-weight-light">Interners</em></span>
                 </a>
 
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">

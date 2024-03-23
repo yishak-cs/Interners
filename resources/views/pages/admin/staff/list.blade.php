@@ -65,7 +65,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $staff->getName() }}</td>
-                                            <td>head of {{ $staff->type }}</td>
+                                            <td>Admin of {{ $staff->type }}</td>
                                             <td>
                                                 <a href="{{ route('admin.staff.view', $staff->id) }}">
                                                     <button class="btn btn-info btn-xs btn-flat">

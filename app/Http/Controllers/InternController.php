@@ -21,11 +21,11 @@ class InternController extends Controller
     }
 
     /**
-     * Display a listing of the resource for school.
+     * Display a listing of the resource for university.
      *
      * @return \Illuminate\View\View
      */
-    public function schoolIndex(): View
+    public function universityIndex(): View
     {
         /**
          * all available interns
@@ -38,11 +38,11 @@ class InternController extends Controller
             ->whereIn('department_id', function($query2){
                 $query2->select('id')
                 ->from('departments')
-                ->where('school_id', auth()->user()->school->id);
+                ->where('university_id', auth()->user()->university->id);
             });
         })->where('status', '1')->get();
 
-        return view('pages.school.intern.list', ['interns'=> $interns]);
+        return view('pages.university.intern.list', ['interns'=> $interns]);
     }
     /**
      * Display a listing of the resource for company.
@@ -93,7 +93,7 @@ class InternController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $school
+     * @param  int $university
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function show(int $intern): View|RedirectResponse

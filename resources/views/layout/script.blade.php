@@ -258,7 +258,7 @@
             window.stepper = new Stepper(document.querySelector('.bs-stepper'));
         })
     @endif
-    @if (request()->is('udepartment/internship/add'))
+    @if (request()->is('faculty/internship/add'))
         // BS-Stepper Init
         document.addEventListener('DOMContentLoaded', function() {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'));
@@ -300,8 +300,8 @@
         @endif
     @endif
 
-    @if (request()->is('udepartment/internship/add') || request()->is('department/internship/edit*'))
-        @if (request()->is('udepartment/internship/add'))
+    @if (request()->is('faculty/internship/add') || request()->is('department/internship/edit*'))
+        @if (request()->is('faculty/internship/add'))
             var counter = 2;
         @else
             var counter = {{ $internship->prerequisites->count() + 1 }};

@@ -36,7 +36,7 @@
                         <div class="icon">
                             <i class="fas fa-briefcase"></i>
                         </div>
-                        <a href="{{ route('school.internship.list') }}" class="small-box-footer">
+                        <a href="{{ route('university.internship.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -68,9 +68,9 @@
                             <p>Applications</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-file-alt"></i>
                         </div>
-                        <a href="{{ route('school.application.list') }}" class="small-box-footer">
+                        <a href="{{ route('university.application.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -87,7 +87,7 @@
                         <div class="icon">
                             <i class="fas fa-user-graduate"></i>
                         </div>
-                        <a href="{{ route('school.intern.list') }}" class="small-box-footer">
+                        <a href="{{ route('university.intern.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -166,10 +166,10 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($application->user->getName()) }}</td>
-                                            <td><a href="{{ route('school.internship.view', $application->internship->id) }}">{{ $application->internship->title }}</a></td>
+                                            <td><a href="{{ route('university.internship.view', $application->internship->id) }}">{{ $application->internship->title }}</a></td>
                                             <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>
                                             <td>
-                                                <a href="{{ route('school.application.delete', $application->id) }}" onclick="if(confirm('Are you sure, you want to delete this Application?') == false){event.preventDefault()}">
+                                                <a href="{{ route('university.application.delete', $application->id) }}" onclick="if(confirm('Are you sure, you want to delete this Application?') == false){event.preventDefault()}">
                                                     <button class="btn btn-danger btn-xs btn-flat">
                                                         <i class="fas fa-trash"></i>
                                                         Delete

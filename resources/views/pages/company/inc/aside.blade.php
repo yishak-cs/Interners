@@ -100,7 +100,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('company.application.list') }}" class="nav-link {{ (request()->is('company/application*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-paper-plane"></i>
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Applications
                         </p>
@@ -125,7 +125,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('company.reports.application') }}" class="nav-link {{ (request()->is('company/reports/application')) ? 'active' : '' }}">
-                                <i class="fas fa-paper-plane nav-icon"></i>
+                                <i class="fas fa-file-alt nav-icon"></i>
                                 <p>Applications</p>
                             </a>
                         </li>

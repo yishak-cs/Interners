@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `departments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `departments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `school_id` bigint(20) unsigned NOT NULL,
+  `university_id` bigint(20) unsigned NOT NULL,
   `head_id` bigint(20) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -32,10 +32,10 @@ CREATE TABLE `departments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `departments_school_id_foreign` (`school_id`),
+  KEY `departments_university_id_foreign` (`university_id`),
   KEY `departments_head_id_foreign` (`head_id`),
   CONSTRAINT `departments_head_id_foreign` FOREIGN KEY (`head_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `departments_school_id_foreign` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`) ON DELETE CASCADE
+  CONSTRAINT `departments_university_id_foreign` FOREIGN KEY (`university_id`) REFERENCES `universities` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -296,7 +296,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2022_07_05_204524_create_schools_table',1),(6,'2022_07_05_204549_create_departments_table',1),(7,'2022_07_05_204556_create_internships_table',1),(8,'2022_07_05_204605_create_internship_prerequisites_table',1),(9,'2022_07_05_204614_create_user_applications_table',1),(10,'2022_07_05_204624_create_user_prerequisite_responses_table',1),(11,'2022_07_05_215043_create_user_information_table',1),(12,'2022_08_26_230713_create_jobs_table',1),(13,'2022_08_29_191500_create_message_rooms_table',1),(14,'2022_08_29_191558_create_message_room_groups_table',1),(15,'2022_08_29_191605_create_messages_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2022_07_05_204524_create_universities_table',1),(6,'2022_07_05_204549_create_departments_table',1),(7,'2022_07_05_204556_create_internships_table',1),(8,'2022_07_05_204605_create_internship_prerequisites_table',1),(9,'2022_07_05_204614_create_user_applications_table',1),(10,'2022_07_05_204624_create_user_prerequisite_responses_table',1),(11,'2022_07_05_215043_create_user_information_table',1),(12,'2022_08_26_230713_create_jobs_table',1),(13,'2022_08_29_191500_create_message_rooms_table',1),(14,'2022_08_29_191558_create_message_room_groups_table',1),(15,'2022_08_29_191605_create_messages_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,13 +357,13 @@ LOCK TABLES `personal_access_tokens` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `schools`
+-- Table structure for table `universities`
 --
 
-DROP TABLE IF EXISTS `schools`;
+DROP TABLE IF EXISTS `universities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `schools` (
+CREATE TABLE `universities` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `head_id` bigint(20) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -372,19 +372,19 @@ CREATE TABLE `schools` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `schools_head_id_foreign` (`head_id`),
-  CONSTRAINT `schools_head_id_foreign` FOREIGN KEY (`head_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  KEY `universities_head_id_foreign` (`head_id`),
+  CONSTRAINT `universities_head_id_foreign` FOREIGN KEY (`head_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `schools`
+-- Dumping data for table `universities`
 --
 
-LOCK TABLES `schools` WRITE;
-/*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (1,NULL,'School of Mechanical Engineering',NULL,'2022-07-16 17:09:34','2022-07-21 11:47:43',NULL),(2,4,'School of Electrical Engineering and Computing',NULL,'2022-07-16 18:49:35','2022-08-24 14:32:47',NULL);
-/*!40000 ALTER TABLE `schools` ENABLE KEYS */;
+LOCK TABLES `universities` WRITE;
+/*!40000 ALTER TABLE `universities` DISABLE KEYS */;
+INSERT INTO `universities` VALUES (1,NULL,'School of Mechanical Engineering',NULL,'2022-07-16 17:09:34','2022-07-21 11:47:43',NULL),(2,4,'School of Electrical Engineering and Computing',NULL,'2022-07-16 18:49:35','2022-08-24 14:32:47',NULL);
+/*!40000 ALTER TABLE `universities` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -511,7 +511,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `last_login` timestamp NULL DEFAULT NULL,
   `is_staff` tinyint(1) NOT NULL DEFAULT 0,
-  `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0 -> user, 1-> admin, 2->school head, 3->department head',
+  `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0 -> user, 1-> admin, 2->university head, 3->department head',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,

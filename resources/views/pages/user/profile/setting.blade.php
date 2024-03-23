@@ -95,13 +95,13 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>School</label>
-                                                <select name="school" id="school-dropdown"
+                                                <label>University</label>
+                                                <select name="university" id="university-dropdown"
                                                     class="form-control @error('degree') is-invalid @enderror select2"
                                                     autofocus required>
                                                     <option>None</option>
-                                                    @foreach ($schools as $school)
-                                                        <option value="{{ $school->id }}">{{ $school->name }}
+                                                    @foreach ($universities as $university)
+                                                        <option value="{{ $university->id }}">{{ $university->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -196,20 +196,6 @@
                                                     </span>
                                                 @enderror
                                             </div>
-
-                                            <div class="form-group">
-                                                <label>University</label> <i class="text-danger font-weight-bold">*</i>
-                                                <input id="university" placeholder="Enter University" type="text"
-                                                    class="form-control @error('university') is-invalid @enderror"
-                                                    name="university"
-                                                    value="{{ Auth::user()->information && Auth::user()->information->university ? Auth::user()->information->university : '' }}"
-                                                    required autocomplete="university">
-                                                @error('university')
-                                                    <span class="text-danger" role="alert">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
-                                            </div>
                                         </div>
                                         <div class="col-md-7">
                                             <div class="form-group">
@@ -243,15 +229,15 @@
 @endsection
 
 @push('scripts')
-    <!-- JavaScript to handle school dropdown change -->
+    <!-- JavaScript to handle university dropdown change -->
     <script>
  $(document).ready(function() {
-    $('#school-dropdown').change(function() {
-        var schoolId = $(this).val();
-        // Make sure a school is selected
-        if (schoolId) {
+    $('#university-dropdown').change(function() {
+        var universityId = $(this).val();
+        // Make sure a university is selected
+        if (universityId) {
             $.ajax({
-                url: '/user/profile/get-departments/' + schoolId,
+                url: '/user/profile/get-departments/' + universityId,
                 type: 'GET',
                 success: function(departments) {
                     $('#department-dropdown').empty().removeAttr('disabled');

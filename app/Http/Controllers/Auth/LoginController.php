@@ -64,11 +64,11 @@ class LoginController extends Controller
                 }else{
                     return redirect()->route('admin.home');
                 }
-            }else if (auth()->user()->type == 'school') {
+            }else if (auth()->user()->type == 'university') {
                 if($request->next){
                     return redirect($request->next);
                 }else{
-                    return redirect()->route('school.home');
+                    return redirect()->route('university.home');
                 }
             }else if (auth()->user()->type == 'company') {
                 if($request->next){
@@ -82,11 +82,11 @@ class LoginController extends Controller
                 }else{
                     return redirect()->route('department.home');
                 }
-            }else if (auth()->user()->type == 'udepartment') {
+            }else if (auth()->user()->type == 'faculty') {
                 if($request->next){
                     return redirect($request->next);
                 }else{
-                    return redirect()->route('udepartment.home');
+                    return redirect()->route('faculty.home');
                 }
             }
             else{

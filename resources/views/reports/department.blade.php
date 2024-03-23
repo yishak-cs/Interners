@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="page-header" style="padding: 10px;">
-                        Jimma University
+                        MoSHE
                         <small class="float-right">Date: {{ \Carbon\Carbon::parse($ats_report->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y')  }}</small>
                     </h2>
                 </div>

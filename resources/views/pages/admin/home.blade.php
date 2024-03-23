@@ -29,14 +29,14 @@
                     <!-- small card -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $stat_counts['schools'] }}</h3>
+                            <h3>{{ $stat_counts['universities'] }}</h3>
 
-                            <p>Schools</p>
+                            <p>Universities</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-graduation-cap"></i>
+                            <i class="fas fa-university"></i>
                         </div>
-                        <a href="{{ route('admin.school.list') }}" class="small-box-footer">
+                        <a href="{{ route('admin.university.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -48,10 +48,10 @@
                         <div class="inner">
                             <h3>{{ $stat_counts['company'] }}</h3>
 
-                            <p>company</p>
+                            <p>Company</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-graduation-cap"></i>
+                            <i class="fas fa-building"></i>
                         </div>
                         <a href="{{ route('admin.company.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>

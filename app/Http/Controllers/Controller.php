@@ -16,7 +16,7 @@ class Controller extends BaseController
     public const MODEL_DEPARTMENT = 'department';
     public const MODEL_USER = 'user';
     public const MODEL_INTERNSHIP = 'internship';
-    public const MODEL_SCHOOL = 'school';
+    public const MODEL_UNIVERSITY = 'university';
     public const MODEL_COMPANY = 'company';
     public const MODEL_APPLICATIONS = 'applications';
     public const MODEL_INTERNS = 'interns';
@@ -59,12 +59,12 @@ class Controller extends BaseController
                 return $this->checkUserAuthorizations($model, $data, $action);
             case 'department':
                 return $this->checkDepartmentAuthorizations($model, $data, $action);
-            case 'udepartment':
-                return $this->checkDepartmentAuthorizations($model, $data, $action);
-            case 'school':
-                return $this->checkSchoolAuthorizations($model, $data, $action);
+            case 'university':
+                return $this->checkUniversityAuthorizations($model, $data, $action);
             case 'company':
                 return $this->checkCompanyAuthorizations($model, $data, $action);
+            case 'faculty':
+                return $this->checkfacultyAuthorizations($model, $data, $action);
             default:
                 // unknown actor
                 return false;
@@ -73,7 +73,7 @@ class Controller extends BaseController
 
 
     /**
-     * check school authorizations
+     * check university authorizations
      *
      * @param string $model
      * @param string $action
@@ -82,12 +82,12 @@ class Controller extends BaseController
      */
     public function checkAdminAuthorizations(string $model, mixed $data, string $action = null): bool
     {
-        // check if the user is head of department
+        // check if the user is Admin of department
         if (auth()->user()->type != 'admin') return false;
         // dd($data);
 
-        // check for school actions
-        if ($model === self::MODEL_SCHOOL) {
+        // check for university actions
+        if ($model === self::MODEL_UNIVERSITY) {
             return true;
         }
         // check for company actions
@@ -166,26 +166,24 @@ class Controller extends BaseController
     }
 
     /**
-     * check school authorizations
+     * check university authorizations
      *
      * @param string $model
      * @param string $action
      * @param mixed $data
      * @return bool
      */
-    public function checkSchoolAuthorizations(string $model, mixed $data, string $action = null): bool
+    public function checkUniversityAuthorizations(string $model, mixed $data, string $action = null): bool
     {
-        // check if the user is head of school
-        if (auth()->user()->school === null) return false;
-
+        // check if the user is Admin of university
+        if (auth()->user()->university === null) return false;
         // check for department actions
         if ($model === self::MODEL_DEPARTMENT) {
             // check the instance
             if (!($data instanceof Department)) return false;
 
-
             // check if the user owns the department
-            if ($data->school_id === auth()->user()->school->id) {
+            if ($data->university_id === auth()->user()->university->id) {
                 return true;
             } else {
                 return false;
@@ -200,7 +198,7 @@ class Controller extends BaseController
             if (!($data instanceof Internship)) return false;
 
             // check if the user owns the internship
-            if ($data->department->school->id === auth()->user()->school->id) {
+            if ($data->department->university->id === auth()->user()->university->id) {
                 // check the action
                 if ($action === self::ACTION_VIEW || $action === self::ACTION_DELETE) {
                     return true;
@@ -220,7 +218,7 @@ class Controller extends BaseController
             if (!($data instanceof UserApplication)) return false;
 
             // check if the user owns the application
-            if ($data->internship->department->school->id === auth()->user()->school->id) {
+            if ($data->internship->department->university->id === auth()->user()->university->id) {
                 // check the action
                 if ($action === self::ACTION_DELETE) {
                     return true;
@@ -256,7 +254,7 @@ class Controller extends BaseController
             if (!($data instanceof UserApplication)) return false;
 
             // check if the user owns the interns
-            if ($data->internship->department->school->id === auth()->user()->school->id) {
+            if ($data->internship->department->university->id === auth()->user()->university->id) {
                 // check the action
                 if ($action === self::ACTION_VIEW) {
                     return true;
@@ -283,7 +281,80 @@ class Controller extends BaseController
      */
     public function checkDepartmentAuthorizations(string $model, mixed $data, string $action = null): bool
     {
-        // check if the user is head of department
+        // check if the user is Admin of department
+        if (auth()->user()->department === null) return false;
+
+        // check for department actions
+        if ($model === self::MODEL_INTERNSHIP) {
+            // check the instance
+            if (!($data instanceof Internship)) return false;
+
+
+            // check if the user owns the department
+            if ($data->department_id === auth()->user()->department->id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // check for application actions
+        else if ($model === self::MODEL_APPLICATIONS) {
+            // action is required
+            if ($action === null) return false;
+
+            // check the instance
+            if (!($data instanceof UserApplication)) return false;
+
+            // check if the user owns the application
+            if ($data->internship->department->id === auth()->user()->department->id) {
+                // check the action
+                if ($action === self::ACTION_DELETE || $action === self::ACTION_VIEW || $action === self::ACTION_ACCEPT_APPLICATION || $action === self::ACTION_REJECT_APPLICATION || $action === self::ACTION_RESET_APPLICATION) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        // check for interns actions
+        else if ($model === self::MODEL_INTERNS) {
+            // action is required
+            if ($action === null) return false;
+
+            // check the instance
+            if (!($data instanceof UserApplication)) return false;
+
+            // check if the user owns the interns
+            if ($data->department->id === auth()->user()->department->id) {
+                // check the action
+                if ($action === self::ACTION_VIEW || $action === self::ACTION_DELETE) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        // if other models comes it doesn't have authorization
+        else {
+            return false;
+        }
+    }
+
+     /**
+     * check department authorizations
+     *
+     * @param string $model
+     * @param string $action
+     * @param mixed $data
+     * @return bool
+     */
+    public function checkfacultyAuthorizations(string $model, mixed $data, string $action = null): bool
+    {
+        // check if the user is Admin of department
         if (auth()->user()->department === null) return false;
 
         // check for department actions
@@ -366,6 +437,7 @@ class Controller extends BaseController
         }
     }
 
+
     /**
      * Check company authorizations.
      *
@@ -376,7 +448,7 @@ class Controller extends BaseController
      */
     public function checkCompanyAuthorizations(string $model, mixed $data, string $action = null): bool
     {
-        // Check if the user is head of company
+        // Check if the user is Admin of company
         if (auth()->user()->company === null) return false;
 
         // Check for department actions

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\School;
+use App\Models\University;
 use App\Models\Company;
 use Illuminate\View\View;
 use App\Models\Department;
@@ -33,13 +33,13 @@ class DashboardController extends Controller
     public function index(): View
     {
         /**
-         * count of department, school, staff and users
+         * count of department, university, staff and users
          *
          * @var array<string, int> $stat_counts
          */
         $stat_counts = [
             'departments' => count(Department::all()),
-            'schools' => count(School::all()),
+            'universities' => count(University::all()),
             'company' => count(Company::all()),
             'staffs' => count(User::where('is_staff', '1')->get()),
             'interns' => count(UserApplication::where('status', '1')->get())
@@ -102,23 +102,23 @@ class DashboardController extends Controller
     }
 
     /**
-     * Display a listing of the resource for school.
+     * Display a listing of the resource for university.
      *
      * @return \Illuminate\View\View
      */
-    public function schoolIndex(): View
+    public function universityIndex(): View
     {
         /**
-         * count of department, school, staff and users
+         * count of department, university, staff and users
          *
          * @var array<string, int> $stat_counts
          */
         $stat_counts = [
-            'departments' => count(Department::where('school_id', auth()->user()->school->id)->get()),
+            'departments' => count(Department::where('university_id', auth()->user()->university->id)->get()),
             'internships' => count(Internship::whereIn('department_id', function ($query) {
                 $query->select('id')
                     ->from('departments')
-                    ->where('school_id', auth()->user()->school->id);
+                    ->where('university_id', auth()->user()->university->id);
             })->get()),
             'interns' => count(UserApplication::whereIn('internship_id', function ($query) {
                 $query->select('id')
@@ -126,7 +126,7 @@ class DashboardController extends Controller
                     ->whereIn('department_id', function ($query2) {
                         $query2->select('id')
                             ->from('departments')
-                            ->where('school_id', auth()->user()->school->id);
+                            ->where('university_id', auth()->user()->university->id);
                     });
             })->where('status', '1')->get()),
             'applications' => count(UserApplication::whereIn('internship_id', function ($query) {
@@ -135,7 +135,7 @@ class DashboardController extends Controller
                     ->whereIn('department_id', function ($query2) {
                         $query2->select('id')
                             ->from('departments')
-                            ->where('school_id', auth()->user()->school->id);
+                            ->where('university_id', auth()->user()->university->id);
                     });
             })->get())
         ];
@@ -179,7 +179,7 @@ class DashboardController extends Controller
                         ->whereIn('department_id', function ($query2) {
                             $query2->select('id')
                                 ->from('departments')
-                                ->where('school_id', auth()->user()->school->id);
+                                ->where('university_id', auth()->user()->university->id);
                         });
                 })->whereDate('created_at', $current_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
             }
@@ -189,7 +189,7 @@ class DashboardController extends Controller
                     ->whereIn('department_id', function ($query2) {
                         $query2->select('id')
                             ->from('departments')
-                            ->where('school_id', auth()->user()->school->id);
+                            ->where('university_id', auth()->user()->university->id);
                     });
             })->whereDate('created_at', $last_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
         }
@@ -212,12 +212,12 @@ class DashboardController extends Controller
                 ->whereIn('department_id', function ($query2) {
                     $query2->select('id')
                         ->from('departments')
-                        ->where('school_id', auth()->user()->school->id);
+                        ->where('university_id', auth()->user()->university->id);
                 });
         })->where('status', '0')->get();
 
         // dd($application_count);
-        return view('pages.school.home', ['applications' => $applications, 'stat_counts' => $stat_counts, 'application_count' => $application_count]);
+        return view('pages.university.home', ['applications' => $applications, 'stat_counts' => $stat_counts, 'application_count' => $application_count]);
     }
         /**
      * Display a listing of the resource for company.
@@ -346,7 +346,7 @@ class DashboardController extends Controller
     public function departmentIndex(): View
     {
         /**
-         * count of department, school, staff and users
+         * count of department, university, staff and users
          *
          * @var array<string, int> $stat_counts
          */

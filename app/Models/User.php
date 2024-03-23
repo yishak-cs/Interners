@@ -30,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'type',
         'is_staff',
         'avatar',
-        'school_id',
+        'university_id',
         'department_id'
     ];
 
@@ -82,13 +82,13 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the school associated with the User
+     * Get the university associated with the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function school(): HasOne
+    public function university(): HasOne
     {
-        return $this->hasOne(School::class, 'head_id', 'id');
+        return $this->hasOne(University::class, 'head_id', 'id');
     }
     /**
      * Get the company associated with the User
@@ -101,13 +101,13 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the school associated with the User
+     * Get the university associated with the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function userSchool(): BelongsTo
+    public function userUniversity(): BelongsTo
     {
-        return $this->belongsTo(School::class, 'school_id', 'id');
+        return $this->belongsTo(University::class, 'university_id', 'id');
     }
 
     /**
@@ -149,7 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ["user", "admin", "school", "department", "company", "udepartment"][$value],
+            get: fn ($value) => ["user", "admin", "university", "department", "company", "faculty"][$value],
         );
     }
 
@@ -227,9 +227,6 @@ class User extends Authenticatable implements MustVerifyEmail
             }
             if (!$this->information->cgpa) {
                 $errors[] = ['You didn\'t fill Cumulative GPA!'];
-            }
-            if (!$this->information->university) {
-                $errors[] = ['You didn\'t fill University!'];
             }
             if (!$this->information->application_letter_file_path) {
                 $errors[] = ['You didn\'t upload application letter!'];

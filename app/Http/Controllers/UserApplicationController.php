@@ -42,14 +42,14 @@ class UserApplicationController extends Controller
     }
 
     /**
-     * Display a listing of the resource by school.
+     * Display a listing of the resource by university.
      *
      * @return \Illuminate\View\View
      */
-    public function schoolIndex(): View
+    public function universityIndex(): View
     {
        /**
-        * all available applications in the school
+        * all available applications in the university
         *
         * @var \App\Models\UserApplication $applications
         */
@@ -59,11 +59,11 @@ class UserApplicationController extends Controller
             ->whereIn('department_id', function($query2){
                 $query2->select('id')
                 ->from('departments')
-                ->where('school_id', auth()->user()->school->id);
+                ->where('university_id', auth()->user()->university->id);
             });
         })->get();
 
-        return view('pages.school.application.list', ['applications'=>$applications]);
+        return view('pages.university.application.list', ['applications'=>$applications]);
     }
     /**
      * Display a listing of the resource by company.

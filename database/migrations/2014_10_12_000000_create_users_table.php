@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login')->nullable();
-            $table->boolean('is_staff')->default(false)->comment( 'admin => 1, company => 2, school => 3');
-            $table->tinyInteger('type')->comment('0 -> user, 1-> admin, 2->school head, 3->department head, 4->company head, 5->udepartment head')->default(0);
+            $table->boolean('is_staff')->default(false)->comment( 'admin => 1, company => 2, university => 3');
+            $table->tinyInteger('type')->comment('0 -> user, 1-> admin, 2->university head, 3->department head, 4->company head, 5->faculty head')->default(0);
             $table->rememberToken();
             $table->text('avatar')->nullable();
             $table->timestamps();

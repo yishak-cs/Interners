@@ -71,7 +71,7 @@ class Company extends Model
     }
 
     /**
-     * Get Company Head name
+     * Get Company Admin name
      *
      * @return string
      */

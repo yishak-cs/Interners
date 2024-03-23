@@ -1,2 +1,0 @@
-# Interners
- Final year project

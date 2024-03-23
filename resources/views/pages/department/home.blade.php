@@ -51,7 +51,7 @@
                             <p>Applications</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-file-alt"></i>
                         </div>
                         <a href="{{ route('department.application.list') }}" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>

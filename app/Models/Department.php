@@ -18,7 +18,7 @@ class Department extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'school_id', 'head_id', 'name', 'description', 'company_id'
+        'university_id', 'head_id', 'name', 'description', 'company_id'
     ];
 
     /**
@@ -61,16 +61,16 @@ class Department extends Model
         return $this->hasMany(User::class, 'deparment_id', 'id');
     }
     /**
-     * Get the school that owns the Department
+     * Get the university that owns the Department
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function school(): BelongsTo
+    public function university(): BelongsTo
     {
-        return $this->belongsTo(School::class, 'school_id', 'id')->withTrashed();
+        return $this->belongsTo(University::class, 'university_id', 'id')->withTrashed();
     }
     /**
-     * Get the school that owns the Department
+     * Get the university that owns the Department
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -90,7 +90,7 @@ class Department extends Model
     }
 
     /**
-     * Get School Head name
+     * Get University Admin name
      *
      * @return string
      */

@@ -46,34 +46,34 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('admin/school*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (request()->is('admin/school*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-graduation-cap"></i>
+                <li class="nav-item {{ (request()->is('admin/university*')) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ (request()->is('admin/university*')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-university"></i>
                         <p>
-                            Schools
+                        Universities
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.school.add') }}" class="nav-link {{ (request()->is('admin/school/add')) ? 'active' : '' }}">
+                            <a href="{{ route('admin.university.add') }}" class="nav-link {{ (request()->is('admin/university/add')) ? 'active' : '' }}">
                                 <i class="fas fa-plus nav-icon"></i>
-                                <p>Add School</p>
+                                <p>Add University</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.school.list') }}" class="nav-link  {{ (request()->is('admin/school/list') || request()->is('admin/school/view*') || request()->is('admin/school/edit*')) ? 'active' : '' }}">
+                            <a href="{{ route('admin.university.list') }}" class="nav-link  {{ (request()->is('admin/university/list') || request()->is('admin/university/view*') || request()->is('admin/university/edit*')) ? 'active' : '' }}">
                                 <i class="fas fa-list nav-icon"></i>
-                                <p>Schools List</p>
+                                <p>Universities List</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item {{ (request()->is('admin/company*')) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ (request()->is('admin/company*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <i class="nav-icon fas fa-building"></i>
                         <p>
-                            Companys
+                            Companies
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>

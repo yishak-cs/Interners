@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item {{ (request()->is('department/application*')) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ (request()->is('department/application*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-paper-plane"></i>
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Applications
                             <i class="right fas fa-angle-left"></i>
@@ -110,7 +110,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('department.reports.application') }}" class="nav-link {{ (request()->is('department/reports/application')) ? 'active' : '' }}">
-                                <i class="fas fa-paper-plane nav-icon"></i>
+                                <i class="fas fa-file-alt nav-icon"></i>
                                 <p>Applications</p>
                             </a>
                         </li>

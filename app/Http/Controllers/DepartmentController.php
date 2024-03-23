@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Department;
-use App\Models\School;
+use App\Models\University;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -71,15 +71,15 @@ class DepartmentController extends Controller
         // validating request
         $request->validate([
             'company_id' => 'nullable|exists:\App\Models\Company,id|integer',
-            'school_id' => 'nullable|exists:\App\Models\School,id|integer',
+            'university_id' => 'nullable|exists:\App\Models\University,id|integer',
             'head_id' => 'nullable|exists:\App\Models\User,id|integer',
             'name' => 'string|required',
             'description' => 'nullable|string'
         ]);
     
-        // Ensure either company_id or school_id is provided
-        if (!$request->filled('company_id') && !$request->filled('school_id')) {
-            return back()->withErrors(['message' => 'Either a company or a school identifier is required.']);
+        // Ensure either company_id or university_id is provided
+        if (!$request->filled('company_id') && !$request->filled('university_id')) {
+            return back()->withErrors(['message' => 'Either a company or a university identifier is required.']);
         }
     
         // create new instance of Department
@@ -163,7 +163,7 @@ class DepartmentController extends Controller
             // validating request
             $request->validate([
                 'company_id' => 'exists:\App\Models\Company,id|integer|nullable',
-                'school_id' => 'exists:\App\Models\School,id|integer|nullable',
+                '_university_id' => 'exists:\App\Models\University,id|integer|nullable',
                 'head_id' => 'exists:\App\Models\User,id|integer|nullable',
                 'name' => 'string|nullable',
                 'description' => 'string|nullable'

@@ -58,12 +58,12 @@ class GeneratePdfReport implements ShouldQueue
 
             $user_applications = UserApplication::whereBetween('created_at', [$this->ats_report->start_date, $this->ats_report->end_date])->get();
         }
-        // for school
-        else if($this->ats_report->owner_type == 'school'){
+        // for university
+        else if($this->ats_report->owner_type == 'university'){
             $internships = Internship::whereIn('department_id', function($query) {
                 $query->select('id')
                 ->from('departments')
-                ->where('school_id', $this->ats_report->owner);
+                ->where('university_id', $this->ats_report->owner);
             })->whereBetween('created_at', [$this->ats_report->start_date, $this->ats_report->end_date])->get();
 
             $user_applications = UserApplication::whereIn('internship_id', function($query) {
@@ -72,7 +72,7 @@ class GeneratePdfReport implements ShouldQueue
                 ->whereIn('department_id', function($query2){
                     $query2->select('id')
                     ->from('departments')
-                    ->where('school_id', $this->ats_report->owner);
+                    ->where('university_id', $this->ats_report->owner);
                 });
             })->whereBetween('created_at', [$this->ats_report->start_date, $this->ats_report->end_date])->get();
         }

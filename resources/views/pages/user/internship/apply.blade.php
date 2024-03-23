@@ -225,7 +225,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success float-right"> <i class="fas fa-paper-plane mr-1"></i> Apply </button>
+                                <button type="submit" class="btn btn-success float-right"> <i class="fas fa-file-alt mr-1"></i> Apply </button>
                             </div>
                         </div>
                     </form>
