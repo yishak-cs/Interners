@@ -11,8 +11,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AtsReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\InternshipController;
-use App\Http\Controllers\MessageRoomController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\UserInformationController;
@@ -145,12 +145,12 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
 });
 /** Department Route End */
 
-/** university Department Route Start */
+/** faculty Route Start */
 Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function () {
     Route::prefix('/faculty')->group(function () {
         Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
 
-        // university department/internship routes
+        // faculty/internship routes
         Route::prefix('/internship')->group(function () {
             Route::get('/add', [InternshipController::class, 'create'])->name('faculty.internship.add');
             Route::post('/add', [InternshipController::class, 'store'])->name('faculty.internship.store');
@@ -163,7 +163,7 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('faculty.internship.start');
         });
 
-        // university department/application route
+        // faculty/application route
         Route::prefix('/application')->group(function () {
             Route::get('/list', [UserApplicationController::class, 'departmentIndex'])->name('faculty.application.list');
             Route::get('/view/{userapplication}', [UserApplicationController::class, 'show'])->name('faculty.application.view');
@@ -174,35 +174,43 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::get('/filter', [UserApplicationController::class, 'filter'])->name('faculty.application.filter');
         });
 
-        // university department/profile routes
+        // faculty/profile routes
         Route::prefix('/profile')->group(function () {
             Route::get('/', [UserController::class, 'profile'])->name('faculty.profile');
             Route::post('/setting', [UserInformationController::class, 'store'])->name('faculty.profile.setting');
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('faculty.profile.password');
         });
 
-        // university department/intern routes
+        // faculty/intern routes
         Route::prefix('/intern')->group(function () {
             Route::get('/list', [InternController::class, 'departmentIndex'])->name('faculty.intern.list');
             Route::get('/view/{intern}', [InternController::class, 'show'])->name('faculty.intern.view');
             Route::get('/delete/{intern}', [InternController::class, 'destroy'])->name('faculty.intern.delete');
         });
 
-        // university department/students routes
+        // faculty/students routes
         Route::prefix('/students')->group(function () {
             Route::get('/list', [StudentController::class, 'index'])->name('faculty.student.list');
             Route::get('/view/{student}', [StudentController::class, 'show'])->name('faculty.student.view');
             Route::get('/delete/{student}', [StudentController::class, 'destroy'])->name('faculty.student.delete');
         });
 
-        // university department/reports route
+        // faculty/reports route
         Route::prefix('/reports')->group(function () {
             Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('faculty.reports.application');
             Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('faculty.reports.internship');
         });
+        // faculty/evaluation route
+        Route::prefix('/evaluations')->group(function () {
+            Route::get('/add', function () {
+                return view('pages.faculty.evaluation.add');
+            })->name('faculty.evaluation.add');
+            Route::Post('/add',[EvaluationController::class, 'store'])->name('faculty.evaluation.store');
+            Route::Post('/list',[EvaluationController::class, 'index'])->name('faculty.evaluation.list');
+        });
     });
 });
-/** university Department Route End */
+/** faculty Route End */
 
 
 /** university Route Start */

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\University;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use App\Models\University;
+use Illuminate\Http\Request;
+use App\Models\UserInformation;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Route;
 
 class UniversityController extends Controller
 {
@@ -81,27 +83,57 @@ class UniversityController extends Controller
         $request->validate([
             'head_id' => 'nullable|exists:\App\Models\User,id|integer',
             'name' => 'string|required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'email' => 'email|required|unique:\App\Models\User,email',
+            'password' => 'string|required|confirmed|min:8',
+            'first_name' => 'string|required',
+            'middle_name' => 'string|required',
+            'last_name' => 'string|nullable'
         ]);
 
-        /**
-         * create new instance of University
-         *
-         * @var \App\Models\University $data
-         */
-        $data = new University($request->all());
+        $staffType = $request->input('staff_type');
+        // create a new user instance
+        $user_login = new User([
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'email_verified_at' => \Carbon\Carbon::now()->timezone('Africa/Addis_Ababa')->format('Y-m-d H:i:s'),
+            'type' => '2',
+            'is_staff' => $staffType
+        ]);
+        if ($user_login->save()) {
+            /**
+             * creating user information
+             *
+             * @var \Illuminate\Models\userInformation
+             */
+            UserInformation::create([
+                'user_id' => $user_login->id,
+                'first_name' => $request->get('first_name'),
+                'middle_name' => $request->get('middle_name'),
+                'last_name' => $request->get('last_name') ?? ''
+            ]);
 
-        // saving new instance in db and returning message
-        if ($data->save()) {
-            // updating head user
-            if ($request->get('head_id')) {
-                User::find($request->get('head_id'))->update(['type' => '2']);
+            // create new company instance
+            $data = new University([
+                'name' => $request->input('name'),
+                'head_id' => $user_login->id,
+                'description' => $request->description,
+            ]);
+            // saving new instance in db and returning message
+            if ($data->save()) {
+                // updating head user
+                if ($request->get('head_id')) {
+                    User::find($request->get('head_id'))->update(['type' => '2']);
+                }
+                return redirect()->route('admin.university.add')->with('success', 'University has been stored successfully!');
+            } else {
+                return redirect()->route('admin.university.add')->with('error', 'Something went wrong, please try again!');
             }
-            return redirect()->route('admin.university.add')->with('success', 'University has been stored successfully!');
         } else {
             return redirect()->route('admin.university.add')->with('error', 'Something went wrong, please try again!');
         }
     }
+
 
     /**
      * Display the specified resource.

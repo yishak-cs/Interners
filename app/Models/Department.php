@@ -90,6 +90,16 @@ class Department extends Model
     }
 
     /**
+     * Get all Evaluations for this Department
+     *
+     * @return HasMany
+     */
+    public function evaluations(): HasMany
+    {
+        return $this->hasMany(Evaluation::class, 'department_id');
+    }
+
+    /**
      * Get University Admin name
      *
      * @return string

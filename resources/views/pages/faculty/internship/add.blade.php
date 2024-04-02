@@ -82,7 +82,8 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Title</label> <i class="text-danger font-weight-bold">*</i>
-                                                        <input type="text" name="title" class="form-control" placeholder="Enter title" required>
+                                                        <input type="text" name="title" class="form-control"
+                                                            placeholder="Enter title" required>
                                                     </div>
                                                     @error('title')
                                                         <span class="text-danger" role="alert">
@@ -91,7 +92,8 @@
                                                     @enderror
                                                     <div class="form-group">
                                                         <label>Minimum CGPA</label>
-                                                        <input type="text" name="minimum_cgpa" class="form-control" placeholder="Enter CGPA">
+                                                        <input type="text" name="minimum_cgpa" class="form-control"
+                                                            placeholder="Enter CGPA">
                                                     </div>
                                                     @error('minimum_cgpa')
                                                         <span class="text-danger" role="alert">
@@ -112,14 +114,19 @@
                                                 <div class="col-md-3"></div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label>Start Date</label> <i class="text-danger font-weight-bold">*</i>
+                                                        <label>Start Date</label> <i
+                                                            class="text-danger font-weight-bold">*</i>
                                                         <div class="input-group date" id="reservationdatetime"
                                                             data-target-input="nearest">
-                                                            <input type="text" name="start_date" class="form-control datetimepicker-input"
-                                                                data-target="#reservationdatetime" placeholder="Start Date" required />
-                                                            <div class="input-group-append" data-target="#reservationdatetime"
+                                                            <input type="text" name="start_date"
+                                                                class="form-control datetimepicker-input"
+                                                                data-target="#reservationdatetime"
+                                                                placeholder="Start Date" required />
+                                                            <div class="input-group-append"
+                                                                data-target="#reservationdatetime"
                                                                 data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                                <div class="input-group-text"><i
+                                                                        class="fa fa-calendar"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -132,14 +139,19 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label>End Date</label> <i class="text-danger font-weight-bold">*</i>
+                                                        <label>End Date</label> <i
+                                                            class="text-danger font-weight-bold">*</i>
                                                         <div class="input-group date" id="reservationdatetime2"
                                                             data-target-input="nearest">
-                                                            <input type="text" name="end_date" class="form-control datetimepicker-input"
-                                                                data-target="#reservationdatetime2" placeholder="End Date" required />
-                                                            <div class="input-group-append" data-target="#reservationdatetime2"
+                                                            <input type="text" name="end_date"
+                                                                class="form-control datetimepicker-input"
+                                                                data-target="#reservationdatetime2" placeholder="End Date"
+                                                                required />
+                                                            <div class="input-group-append"
+                                                                data-target="#reservationdatetime2"
                                                                 data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                                <div class="input-group-text"><i
+                                                                        class="fa fa-calendar"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -155,7 +167,8 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Quota</label>
-                                                        <input type="number" name="quota" class="form-control" placeholder="Enter quota">
+                                                        <input type="number" name="quota" class="form-control"
+                                                            placeholder="Enter quota">
                                                     </div>
                                                     @error('quota')
                                                         <span class="text-danger" role="alert">
@@ -165,22 +178,27 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
-                                                        <label>DeadLine</label> <i class="text-danger font-weight-bold">*</i>
+                                                        <label>DeadLine</label> <i
+                                                            class="text-danger font-weight-bold">*</i>
                                                         <div class="input-group date" id="reservationdatetime3"
                                                             data-target-input="nearest">
-                                                            <input type="text" name="deadline" class="form-control datetimepicker-input"
-                                                                data-target="#reservationdatetime3" placeholder="DeadLine" required/>
-                                                            <div class="input-group-append" data-target="#reservationdatetime3"
+                                                            <input type="text" name="deadline"
+                                                                class="form-control datetimepicker-input"
+                                                                data-target="#reservationdatetime3" placeholder="DeadLine"
+                                                                required />
+                                                            <div class="input-group-append"
+                                                                data-target="#reservationdatetime3"
                                                                 data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i class="fa fa-calendar"></i>
+                                                                <div class="input-group-text"><i
+                                                                        class="fa fa-calendar"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         @error('deadline')
-                                                        <span class="text-danger" role="alert">
-                                                            {{ $message }}
-                                                        </span>
-                                                    @enderror
+                                                            <span class="text-danger" role="alert">
+                                                                {{ $message }}
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3"></div>
@@ -189,16 +207,18 @@
                                         <div id="second-step" class="content" role="tabpanel"
                                             aria-labelledby="second-step-trigger">
                                             <p>Add prerequisite question and/or requirments.
-                                            <button id="inputRowAdder" type="button" class="btn btn-dark">
-                                                <i class="fas fa-plus">
-                                                </i> ADD
-                                            </button>
-                                        </p>
+                                                <button id="inputRowAdder" type="button" class="btn btn-dark">
+                                                    <i class="fas fa-plus">
+                                                    </i> ADD
+                                                </button>
+                                            </p>
                                             <div class="row">
                                                 <div class="col-md-3"></div>
                                                 <div class="col-md-6" id="inputDiv">
                                                     <div class="input-group" id="inputGroupDiv">
-                                                        <input type="text" placeholder="Enter key" name="prerequisite[1][pre_key]" class="form-control" required/>
+                                                        <input type="text" placeholder="Enter key"
+                                                            name="prerequisite[1][pre_key]" class="form-control"
+                                                            required />
                                                         <div class="input-group-append">
                                                             <button class="btn btn-danger" id="inputRowDelete">
                                                                 <i class="fa fa-minus"></i>
@@ -216,9 +236,12 @@
                             <div class="card-footer ">
                                 <p class=" float-left"><i class="text-danger font-weight-bold">*</i> are
                                     required fields</p>
-                                <button type="button" class="btn btn-primary float-right nextBtn" onclick="nextHandler()"> Next <i class="fas fa-arrow-right ml-1"></i> </button>
-                                <button type="submit" hidden class="btn btn-success float-right ml-2 submitBtn">Submit</button>
-                                <button type="button" class="btn btn-primary float-right prevBtn" hidden onclick="previousHandler()"> <i class="fas fa-arrow-left mr-1"></i>Previous</button>
+                                <button type="button" class="btn btn-primary float-right nextBtn"
+                                    onclick="nextHandler()"> Next <i class="fas fa-arrow-right ml-1"></i> </button>
+                                <button type="submit" hidden
+                                    class="btn btn-success float-right ml-2 submitBtn">Submit</button>
+                                <button type="button" class="btn btn-primary float-right prevBtn" hidden
+                                    onclick="previousHandler()"> <i class="fas fa-arrow-left mr-1"></i>Previous</button>
                             </div>
                         </div>
                     </form>
@@ -231,7 +254,7 @@
         nextHandler = () => {
             stepper.next();
             $('.prevBtn').removeAttr('hidden');
-            if(stepper._currentIndex == (stepper._steps.length - 1)) {
+            if (stepper._currentIndex == (stepper._steps.length - 1)) {
                 $('.submitBtn').removeAttr('hidden');
                 $('.nextBtn').attr('hidden', true);
             }
@@ -241,11 +264,9 @@
             stepper.previous();
             $('.nextBtn').removeAttr('hidden');
             $('.submitBtn').attr('hidden', true);
-            if(stepper._currentIndex == 0) {
+            if (stepper._currentIndex == 0) {
                 $('.prevBtn').attr('hidden', true);
             }
         }
-
-
     </script>
 @endsection

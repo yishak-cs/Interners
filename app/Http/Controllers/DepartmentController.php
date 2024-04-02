@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use App\Models\Department;
-use App\Models\University;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Models\Company;
 use Illuminate\View\View;
+use App\Models\Department;
+use Illuminate\Http\Request;
+use App\Models\UserInformation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Route;
 
 class DepartmentController extends Controller
 {
@@ -70,32 +71,61 @@ class DepartmentController extends Controller
     {
         // validating request
         $request->validate([
-            'company_id' => 'nullable|exists:\App\Models\Company,id|integer',
-            'university_id' => 'nullable|exists:\App\Models\University,id|integer',
+            'company_id' => 'required|exists:\App\Models\Company,id|integer',
             'head_id' => 'nullable|exists:\App\Models\User,id|integer',
             'name' => 'string|required',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'email' => 'email|required|unique:\App\Models\User,email',
+            'password' => 'string|required|confirmed|min:8',
+            'first_name' => 'string|required',
+            'middle_name' => 'string|required',
+            'last_name' => 'string|nullable'
         ]);
-    
-        // Ensure either company_id or university_id is provided
-        if (!$request->filled('company_id') && !$request->filled('university_id')) {
-            return back()->withErrors(['message' => 'Either a company or a university identifier is required.']);
-        }
-    
-        // create new instance of Department
-        $data = new Department($request->all());
-    
-        // saving new instance in db and returning message
-        if ($data->save()) {
-            // updating head user
-            if ($request->get('head_id')) {
-                User::find($request->get('head_id'))->update(['type' => '3']);
+
+        $staffType = $request->input('staff_type');
+        // create a new user instance
+        $user_login = new User([
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'email_verified_at' => \Carbon\Carbon::now()->timezone('Africa/Addis_Ababa')->format('Y-m-d H:i:s'),
+            'type' => '3',
+            'is_staff' => $staffType
+        ]);
+        if ($user_login->save()) {
+            /**
+             * creating user information
+             *
+             * @var \Illuminate\Models\userInformation
+             */
+            UserInformation::create([
+                'user_id' => $user_login->id,
+                'first_name' => $request->get('first_name'),
+                'middle_name' => $request->get('middle_name'),
+                'last_name' => $request->get('last_name') ?? ''
+            ]);
+
+            // create new instance of Department
+            $data = new Department([
+                'company_id' => $request->company_id,
+                'name' => $request->input('name'),
+                'head_id' => $user_login->id,
+                'description' => $request->description,
+            ]);
+            // saving new instance in db and returning message
+            if ($data->save()) {
+                // updating head user
+                if ($request->get('head_id')) {
+                    User::find($request->get('head_id'))->update(['type' => '3']);
+                }
+                return redirect()->route($this->current_route . '.department.add')->with('success', 'Faculty has been stored successfully!');
+            } else {
+                return redirect()->route($this->current_route . '.department.add')->with('error', 'Something went wrong, please try again!');
             }
-            return redirect()->route($this->current_route.'.department.add')->with('success', 'Department has been stored successfully!');
         } else {
-            return redirect()->route($this->current_route.'.department.add')->with('error', 'Something went wrong, please try again!');
+            return redirect()->route($this->current_route . '.department.add')->with('error', 'Something went wrong, please try again!');
         }
     }
+
     
 
     /**
@@ -163,7 +193,6 @@ class DepartmentController extends Controller
             // validating request
             $request->validate([
                 'company_id' => 'exists:\App\Models\Company,id|integer|nullable',
-                '_university_id' => 'exists:\App\Models\University,id|integer|nullable',
                 'head_id' => 'exists:\App\Models\User,id|integer|nullable',
                 'name' => 'string|nullable',
                 'description' => 'string|nullable'
