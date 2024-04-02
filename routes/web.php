@@ -13,7 +13,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\InternshipController;
-use App\Http\Controllers\MessageRoomController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\UserInformationController;
