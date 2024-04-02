@@ -173,7 +173,6 @@
     </section>
 @endsection
 @push('scripts')
-    <script src="{{ asset('assets/bs-stepper/js/bs-stepper.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'));
