@@ -315,4 +315,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $flag = ($flag / 15) * 100;
         return round($flag, 2);
     }
+
+    /**
+     * Get all the Evaluation responses given to this User
+     *
+     * @return HasOne
+     */
+    public function responses(): HasMany
+    {
+        return $this->hasMany(EvaluationResponse::class, 'user_id');
+    }
 }
