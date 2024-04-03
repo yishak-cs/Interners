@@ -222,11 +222,6 @@
         </div><!-- /.container-fluid -->
     </section>
 @endsection
-@section('header')
-    @include('layout.header', ['title' => 'User | Account | Settings'])
-    <!-- Include jQuery from a CDN in the head tag of your HTML -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-@endsection
 
 @push('scripts')
     <!-- JavaScript to handle university dropdown change -->

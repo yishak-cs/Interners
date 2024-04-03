@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Evaluation;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\UserApplication;
@@ -22,6 +23,7 @@ class Controller extends BaseController
     public const MODEL_INTERNS = 'interns';
     public const MODEL_STUDENTS = 'students';
     public const MODEL_STAFF = 'staff';
+    public const MODEL_EVALUATION = 'evaluation';
 
     public const ACTION_VIEW = 'view';
     public const ACTION_EDIT = 'edit';
@@ -344,7 +346,7 @@ class Controller extends BaseController
         }
     }
 
-     /**
+    /**
      * check department authorizations
      *
      * @param string $model
@@ -354,17 +356,30 @@ class Controller extends BaseController
      */
     public function checkfacultyAuthorizations(string $model, mixed $data, string $action = null): bool
     {
-        // check if the user is Admin of department
+        // check if the user is Admin of faculty
         if (auth()->user()->department === null) return false;
 
-        // check for department actions
+        // check for faculty actions
         if ($model === self::MODEL_INTERNSHIP) {
             // check the instance
             if (!($data instanceof Internship)) return false;
 
 
-            // check if the user owns the department
+            // check if the user owns the faculty
             if ($data->department_id === auth()->user()->department->id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // check of evaluation action
+        else if ($model === self::MODEL_EVALUATION) {
+            //check the instance 
+            if (!($data instanceof Evaluation)) return false;
+
+            // check if the faculty owns the evaluation
+            if ($data->deparment_id === auth()->user()->department->id) {
                 return true;
             } else {
                 return false;
