@@ -218,7 +218,7 @@ Route::middleware(['auth', 'verified', 'user-access:university'])->group(functio
     Route::prefix('/university')->group(function () {
         Route::get('/home', [DashboardController::class, 'universityIndex'])->name('university.home');
 
-        // university/department routes
+        // university/faculty routes
         Route::prefix('/faculty')->group(function () {
             Route::get('/add', [FacultyController::class, 'create'])->name('university.faculty.add');
             Route::post('/add', [FacultyController::class, 'store'])->name('university.faculty.store');

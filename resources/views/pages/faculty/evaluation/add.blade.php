@@ -49,9 +49,11 @@
                                         <button type="button" class="close" data-dismiss="alert"
                                             aria-hidden="true">×</button>
                                         <i class="icon fas fa-check"></i>
-                                        {{ $success }}
+                                        {{ session('success') }}
                                     </div>
                                 @endif
+                                <div class="alert alert-success d-none" role="alert" id="successMessage"></div>
+                                <div class="alert alert-danger d-none" role="alert" id="errorMessage"></div>
                                 <div class="bs-stepper linear">
                                     <div class="bs-stepper-header" role="tablist">
                                         <!-- your steps here -->
@@ -77,8 +79,7 @@
                                         <div id="first-step" class="content active dstepper-block" role="tabpanel"
                                             aria-labelledby="first-step-trigger">
                                             <div class="row">
-                                                <input name="department_id" type="text"
-                                                    value="{{ auth()->user()->department->id }}" hidden>
+                                                <div class="col-md-1"></div>
                                                 <div class="col-12">
                                                     <label>{{ __('Form Body') }}</label> <i
                                                         class="text-danger font-weight-bold">*</i>
@@ -89,10 +90,16 @@
                                         </div>
                                         <div id="second-step" class="content" role="tabpanel"
                                             aria-labelledby="second-step-trigger">
-
                                             <div class="row">
                                                 <div class="col-md-3"></div>
                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Faculty</label> :
+                                                        <span>{{ Auth::user()->department->name }}</span>
+                                                        <input hidden value="{{ Auth::user()->department->id }}"
+                                                            name="department_id" id="department_id" />
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label>{{ __('Title') }}</label> <i
                                                             class="text-danger font-weight-bold">*</i>
@@ -105,6 +112,7 @@
                                                             </span>
                                                         @enderror
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label>Description</label>
                                                         <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"></textarea>
@@ -142,36 +150,34 @@
                                                             </span>
                                                         @enderror
                                                     </div>
-
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer ">
-                                    <p class=" float-left"><i class="text-danger font-weight-bold">*</i> are
-                                        required fields</p>
-                                    <button type="button" class="btn btn-primary float-right nextBtn"
-                                        onclick="nextHandler()">
-                                        Next
-                                        <i class="fas fa-arrow-right ml-1"></i> </button>
-                                    <button type="submit" hidden
-                                        class="btn btn-success float-right ml-2 submitBtn">Submit</button>
-                                    <button type="button" class="btn btn-primary float-right prevBtn" hidden
-                                        onclick="previousHandler()"> <i
-                                            class="fas fa-arrow-left mr-1"></i>Previous</button>
-                                </div>
                             </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer ">
+                                <p class=" float-left"><i class="text-danger font-weight-bold">*</i> are
+                                    required fields</p>
+                                <button type="button" class="btn btn-primary float-right nextBtn"
+                                    onclick="nextHandler()">
+                                    Next
+                                    <i class="fas fa-arrow-right ml-1"></i> </button>
+                                <button type="submit" hidden
+                                    class="btn btn-success float-right ml-2 submitBtn">Submit</button>
+                                <button type="button" class="btn btn-primary float-right prevBtn" hidden
+                                    onclick="previousHandler()"> <i class="fas fa-arrow-left mr-1"></i>Previous</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-
-        </div>
     </section>
 @endsection
+
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -290,13 +296,13 @@
                     $(`#myFormBuilder :input[name="title"]`).val('');
                     form_builder.actions.clearFields();
                     smess.removeClass('d-none');
-                    smess.html(`<i class="icon fas fa-check"></i> ${response[0].message}`);
+                    smess.html(`<i class="icon fas fa-check"></i> Evaluation has been successfaully stored!`);
                     $(`#description`).val('');
                 }).catch((error) => {
                     btn.html(`{{ __('Submit') }}`);
                     btn.attr('disabled', false);
                     emess.removeClass('d-none');
-                    emess.html(`<i class="icon fas fa-ban"></i> ${error.responseJSON.message}`);
+                    emess.html(`<i class="icon fas fa-ban"></i> Something went wrong, please try again`);
                 });
             });
         });

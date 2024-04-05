@@ -34,9 +34,13 @@ class EvaluationController extends Controller
         ]);
 
         if ($evaluation->save()) {
-            return redirect()->route('faculty.evaluation.add')->with('success', 'Evaluation has been successfully created!');
+            return response([
+                'message' => 'Evaluation has been successfaully stored!'
+            ], 200);
         } else {
-            return redirect()->back()->with('error', 'Something went wrong, please try again!');
+            return response([
+                'message' => 'Something went wrong, please try again!'
+            ], 500);
         }
     }
 }
