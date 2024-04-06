@@ -69,6 +69,33 @@
                         </li>
                     </ul>
                 </li>
+                {{-- department --}}
+                <li class="nav-item {{ request()->is('faculty/department*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('faculty/department*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>
+                            Departments
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('faculty.department.add') }}"
+                                class="nav-link {{ request()->is('faculty/department/add') ? 'active' : '' }}">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>Add Department</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('faculty.department.list') }}"
+                                class="nav-link {{ request()->is('faculty/department/list') || request()->is('faculty/department/view*') || request()->is('faculty/department/edit*') ? 'active' : '' }}">
+                                <i class="fas fa-list nav-icon"></i>
+                                <p>Departments List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- department --}}
                 {{-- evaluation trial --}}
                 <li class="nav-item {{ request()->is('faculty/evaluation*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/evaluation*') ? 'active' : '' }}">

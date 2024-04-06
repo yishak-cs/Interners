@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Evaluation;
+use App\Models\FacultyDepartment;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\UserApplication;
@@ -367,6 +368,19 @@ class Controller extends BaseController
 
             // check if the user owns the faculty
             if ($data->department_id === auth()->user()->department->id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // check of department action
+        else if ($model === self::MODEL_DEPARTMENT) {
+            //check the instance 
+            if (!($data instanceof FacultyDepartment)) return false;
+
+            // check if the faculty owns the evaluation
+            if ($data->faculty->id === auth()->user()->department->id) {
                 return true;
             } else {
                 return false;

@@ -51,6 +51,16 @@ class Department extends Model
     {
         return $this->hasMany(Internship::class, 'department_id', 'id');
     }
+
+    /**
+     * Get all of the FacultyDepartments for the Department
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function facultyDepartment(): HasMany
+    {
+        return $this->hasMany(FacultyDepartment::class, 'faculty_id', 'id');
+    }
     /**
      * Get all of the user for the Department
      *
