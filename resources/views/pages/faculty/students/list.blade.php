@@ -54,6 +54,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Full Name</th>
+                                        <th>Department</th>
                                         <th>Pending Applications</th>
                                         <th>Accepted Applications</th>
                                         <th>Rejected Applications</th>
@@ -65,6 +66,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($student->getName()) }}</td>
+                                            <td>{{ $student->fdepartment->name }}</td>
                                             <td><a
                                                     class="float-right">{{ number_format($studentsStats[$student->id][0]) }}</a>
                                             </td>

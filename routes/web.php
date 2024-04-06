@@ -151,18 +151,8 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
     Route::prefix('/faculty')->group(function () {
         Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
 
-        // faculty/internship routes
-        Route::prefix('/internship')->group(function () {
-            Route::get('/add', [InternshipController::class, 'create'])->name('faculty.internship.add');
-            Route::post('/add', [InternshipController::class, 'store'])->name('faculty.internship.store');
-            Route::get('/list', [InternshipController::class, 'departmentIndex'])->name('faculty.internship.list');
-            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('faculty.internship.view');
-            Route::get('/edit/{internship}', [InternshipController::class, 'edit'])->name('faculty.internship.edit');
-            Route::post('/update/{internship}', [InternshipController::class, 'update'])->name('faculty.internship.update');
-            Route::post('/updatepre/{internship}', [InternshipController::class, 'updatePrerequisite'])->name('faculty.internship.updatePre');
-            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('faculty.internship.delete');
-            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('faculty.internship.start');
-        });
+        // faculty/internship routes used to be here
+
 
         // faculty/department routes
         Route::prefix('/department')->group(function () {
@@ -368,6 +358,7 @@ Route::middleware(['auth', 'verified', 'user-access:user'])->group(function () {
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('user.profile.password');
             Route::post('/upload', [UserInformationController::class, 'upload'])->name('user.profile.upload');
             Route::get('/get-departments/{universityId}', [UniversityController::class, 'getDepartments'])->name('user.get-departments');
+            Route::get('/get-facultydepartments/{facultyId}', [FacultyController::class, 'getFacultyDepartments'])->name('user.get-FacultyDepartments');
         });
 
         // user/application routes

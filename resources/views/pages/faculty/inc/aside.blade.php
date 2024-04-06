@@ -44,35 +44,10 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('faculty/internship*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('faculty/internship*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>
-                            Internships
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.internship.add') }}"
-                                class="nav-link {{ request()->is('faculty/internship/add') ? 'active' : '' }}">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Add Internship</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.internship.list') }}"
-                                class="nav-link {{ request()->is('faculty/internship/list') || request()->is('faculty/internship/view*') || request()->is('faculty/internship/edit*') ? 'active' : '' }}">
-                                <i class="fas fa-list nav-icon"></i>
-                                <p>Internships List</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
                 {{-- department --}}
                 <li class="nav-item {{ request()->is('faculty/department*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/department*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
+                        <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             Departments
                             <i class="right fas fa-angle-left"></i>
@@ -99,7 +74,7 @@
                 {{-- evaluation trial --}}
                 <li class="nav-item {{ request()->is('faculty/evaluation*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/evaluation*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-alt"></i>
+                        <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>
                             Evaluations
                             <i class="right fas fa-angle-left"></i>

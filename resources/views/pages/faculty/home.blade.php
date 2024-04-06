@@ -25,22 +25,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small card -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $stat_counts['internships'] }}</h3>
-
-                            <p>Internships</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <a href="{{ route('faculty.internship.list') }}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
+                
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small card -->

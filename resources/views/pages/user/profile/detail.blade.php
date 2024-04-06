@@ -49,8 +49,10 @@
         <dl  class="row">
             <dt class="col-sm-4">University: </dt>
             <dd class="col-sm-8">{{ (Auth::user()->userUniversity->name) ?? '-' }}</dd>
-            <dt class="col-sm-4">Department: </dt>
+            <dt class="col-sm-4">Faculty: </dt>
             <dd class="col-sm-8">{{ (Auth::user()->userDepartment->name) ?? '-' }}</dd>
+            <dt class="col-sm-4">Department: </dt>
+            <dd class="col-sm-8">{{ (Auth::user()->fdepartment->name) ?? '-' }}</dd>
             <dt class="col-sm-4">Registered Date: </dt>
             <dd class="col-sm-8">{{ \Carbon\Carbon::parse(Auth::user()->information->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y \a\t H:i a') }}</dd>
             <dt class="col-sm-4">Last update: </dt>
