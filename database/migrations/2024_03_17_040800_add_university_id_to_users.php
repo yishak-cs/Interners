@@ -17,6 +17,7 @@ return new class extends Migration
             //
             $table->foreignId('university_id')->nullable()->constrained('universities');
             $table->foreignId('department_id')->nullable()->constrained('departments');
+            $table->foreignId('fdepartment_id')->nullable()->constrained('faculty_departments');
         });
     }
 
@@ -36,6 +37,9 @@ return new class extends Migration
 
             $table->dropForeign(['department_id']);
             $table->dropColumn('department_id');
+
+            $table->dropForeign(['fdepartment_id']);
+            $table->dropColumn('fdepartment_id');
         });
     }
 };

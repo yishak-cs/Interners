@@ -163,16 +163,22 @@
                                     </div>
                                     <div class="col-md-6">
                                         <dl class="row">
-                                            @if ($user->University->name)
+                                            @if ($user->userUniversity)
                                                 <dt class="col-sm-4">department: </dt>
                                                 <dd class="col-sm-8">
                                                     {{ $user->userUniversity->name }}
                                                 </dd>
                                             @endif
-                                            @if ($user->information->department)
-                                                <dt class="col-sm-4">Department: </dt>
+                                            @if ($user->userDepartment)
+                                                <dt class="col-sm-4">Faculty: </dt>
                                                 <dd class="col-sm-8">
                                                     {{ $user->userDepartment->name }}
+                                                </dd>
+                                            @endif
+                                            @if ($user->fdepartment)
+                                                <dt class="col-sm-4">Department: </dt>
+                                                <dd class="col-sm-8">
+                                                    {{ $user->fdepartment->name }}
                                                 </dd>
                                             @endif
                                         </dl>

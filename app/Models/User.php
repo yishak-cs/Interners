@@ -31,7 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_staff',
         'avatar',
         'university_id',
-        'department_id'
+        'department_id',
+        'fdepartment_id'
     ];
 
     /**
@@ -113,11 +114,21 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the userDepartment associated with the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function userDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    /**
+     * Get the fdepartment that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function fdepartment(): BelongsTo
+    {
+        return $this->belongsTo(FacultyDepartment::class, 'fdepartment_id', 'id');
     }
 
     /**

@@ -5,17 +5,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InternController;
-use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AtsReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\InternshipController;
-use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\UserApplicationController;
 use App\Http\Controllers\UserInformationController;
+use App\Http\Controllers\FacultyDepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,17 +151,18 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
     Route::prefix('/faculty')->group(function () {
         Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
 
-        // faculty/internship routes
-        Route::prefix('/internship')->group(function () {
-            Route::get('/add', [InternshipController::class, 'create'])->name('faculty.internship.add');
-            Route::post('/add', [InternshipController::class, 'store'])->name('faculty.internship.store');
-            Route::get('/list', [InternshipController::class, 'departmentIndex'])->name('faculty.internship.list');
-            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('faculty.internship.view');
-            Route::get('/edit/{internship}', [InternshipController::class, 'edit'])->name('faculty.internship.edit');
-            Route::post('/update/{internship}', [InternshipController::class, 'update'])->name('faculty.internship.update');
-            Route::post('/updatepre/{internship}', [InternshipController::class, 'updatePrerequisite'])->name('faculty.internship.updatePre');
-            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('faculty.internship.delete');
-            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('faculty.internship.start');
+        // faculty/internship routes used to be here
+
+
+        // faculty/department routes
+        Route::prefix('/department')->group(function () {
+            Route::get('/add', [FacultyDepartmentController::class, 'create'])->name('faculty.department.add');
+            Route::post('/add', [FacultyDepartmentController::class, 'store'])->name('faculty.department.store');
+            Route::get('/list', [FacultyDepartmentController::class, 'index'])->name('faculty.department.list');
+            Route::get('/view/{faculty_department}', [FacultyDepartmentController::class, 'show'])->name('faculty.department.view');
+            Route::get('/edit/{faculty_department}', [FacultyDepartmentController::class, 'edit'])->name('faculty.department.edit');
+            Route::post('/update/{faculty_department}', [FacultyDepartmentController::class, 'update'])->name('faculty.department.update');
+            Route::get('/delete/{faculty_department}', [FacultyDepartmentController::class, 'destroy'])->name('faculty.department.delete');
         });
 
         // faculty/application route
@@ -205,8 +207,8 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::get('/add', function () {
                 return view('pages.faculty.evaluation.add');
             })->name('faculty.evaluation.add');
-            Route::Post('/add',[EvaluationController::class, 'store'])->name('faculty.evaluation.store');
-            Route::Post('/list',[EvaluationController::class, 'index'])->name('faculty.evaluation.list');
+            Route::Post('/add', [EvaluationController::class, 'store'])->name('faculty.evaluation.store');
+            Route::Post('/list', [EvaluationController::class, 'index'])->name('faculty.evaluation.list');
         });
     });
 });
@@ -356,6 +358,7 @@ Route::middleware(['auth', 'verified', 'user-access:user'])->group(function () {
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('user.profile.password');
             Route::post('/upload', [UserInformationController::class, 'upload'])->name('user.profile.upload');
             Route::get('/get-departments/{universityId}', [UniversityController::class, 'getDepartments'])->name('user.get-departments');
+            Route::get('/get-facultydepartments/{facultyId}', [FacultyController::class, 'getFacultyDepartments'])->name('user.get-FacultyDepartments');
         });
 
         // user/application routes

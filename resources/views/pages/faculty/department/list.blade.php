@@ -1,7 +1,7 @@
 @extends('pages.faculty.inc.app')
 
 @section('header')
-    @include('layout.header', ['title' => 'Faculty | Internship | List'])
+    @include('layout.header', ['title' => 'Faculty | Department | List'])
 @endsection
 
 @section('content-header')
@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Internship List</h1>
+                    <h1 class="m-0">Department List</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Home</li>
-                        <li class="breadcrumb-item">Internship</li>
+                        <li class="breadcrumb-item">Department</li>
                         <li class="breadcrumb-item active">List</li>
                     </ol>
                 </div><!-- /.col -->
@@ -32,7 +32,7 @@
 
                     <div class="card card-default">
                         <div class="card-header">
-                            <h3 class="card-title">Internship List</h3>
+                            <h3 class="card-title">Department List</h3>
                         </div>
                         <div class="card-body">
                             @if (session('error'))
@@ -55,68 +55,34 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        <th>Qouta</th>
-                                        <th>DeadLine</th>
-                                        <th>Status</th>
+                                        <th>Department Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($internships as $internship)
+                                    @foreach ($faculty_departments as $department)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $internship->title }}</td>
-                                            <td>{{ $internship->quota }}</td>
-                                            <td class="@if ($internship->isDeadlinePassed())->isPast()) text-danger @else text-success @endif">{{ \Carbon\Carbon::parse($internship->deadline)->setTimezone('Africa/Addis_Ababa')->format('d/m/Y \a\t H:i a') }}</td>
+                                            <td>{{ $department->name }}</td>
                                             <td>
-                                                @if ($internship->status == 0)
-                                                    <span class="badge badge-danger">Ended</span>
-                                                @elseif ($internship->status == 1)
-                                                    <span class="badge badge-success">Accepting Applicants</span>
-                                                @elseif ($internship->status == 2)
-                                                    <span class="badge badge-warning">Ongoing</span>
-                                                @elseif ($internship->status == 3)
-                                                    <span class="badge badge-info">Waiting</span>
-                                                @elseif ($internship->status == 4)
-                                                    <span class="badge badge-danger">Aborted</span>
-                                                @endif
-                                            </td>
-                                            <td>@if (!$internship->isEnded() && $internship->isStarted() && $internship->status != '2')
-                                                <a href="{{ route('faculty.internship.start', $internship->id) }}">
-                                                    <button class="btn btn-success btn-xs btn-flat">
-                                                        <i class="fas fa-check"></i>
-                                                        Start
-                                                    </button>
-                                                </a>
-                                                @endif
-                                                <a href="{{ route('faculty.internship.view', $internship->id) }}">
+                                                <a href="{{ route('faculty.department.view', $department->id) }}">
                                                     <button class="btn btn-info btn-xs btn-flat">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </button>
                                                 </a>
-                                                <a href="{{ route('faculty.internship.edit', $internship->id) }}">
+                                                <a href="{{ route('faculty.department.edit', $department->id) }}">
                                                     <button class="btn btn-primary btn-xs btn-flat">
                                                         <i class="fas fa-edit"></i>
                                                         Edit
                                                     </button>
                                                 </a>
-                                                @if ($internship->isEnded() && $internship->status == '2')
-                                                <a href="{{ route('faculty.internship.delete', $internship->id) }}" onclick="if(confirm('Are you sure, you want to End {{ $internship->title }}?') == false){event.preventDefault()}">
-                                                    <button class="btn btn-danger btn-xs btn-flat">
-                                                        <i class="fas fa-times"></i>
-                                                        End
-                                                    </button>
-                                                </a>
-                                                @else
-                                                <a href="{{ route('faculty.internship.delete', $internship->id) }}" onclick="if(confirm('Are you sure, you want to delete {{ $internship->title }}?') == false){event.preventDefault()}">
+                                                <a href="{{ route('faculty.department.delete', $department->id) }}" onclick="if(confirm('Are you sure, you want to delete {{ $department->name }}?') == false){event.preventDefault()}">
                                                     <button class="btn btn-danger btn-xs btn-flat">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </button>
                                                 </a>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

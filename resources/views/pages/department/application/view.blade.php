@@ -164,19 +164,25 @@
                                         <div class="col-md-6">
                                             <dl class="row">
                                                 <dt class="col-sm-4">University: </dt>
-                                                <dd class="col-sm-8">
-                                                    {{ $user->information->university ? $user->information->university : '-' }}
-                                                </dd>
-                                                @if ($user->information->degree)
+                                                    <dd class="col-sm-8">
+                                                        {{ $user->userUniversity->name ?? '-'}}
+                                                    </dd>
+                                                @if ($user->userUniversity)
                                                     <dt class="col-sm-4">University: </dt>
                                                     <dd class="col-sm-8">
-                                                        {{ $user->information->degree }}
+                                                        {{ $user->userUniversity->name }}
                                                     </dd>
                                                 @endif
-                                                @if ($user->information->department)
-                                                    <dt class="col-sm-4">Department: </dt>
+                                                @if ($user->userDepartment)
+                                                    <dt class="col-sm-4">Faculty: </dt>
                                                     <dd class="col-sm-8">
-                                                        {{ $user->information->department }}
+                                                        {{ $user->userDepartment->name }}
+                                                    </dd>
+                                                @endif
+                                                @if ($user->fdepartment)
+                                                    <dt class="col-sm-4">Faculty: </dt>
+                                                    <dd class="col-sm-8">
+                                                        {{ $user->fdepartment->name }}
                                                     </dd>
                                                 @endif
                                             </dl>

@@ -236,4 +236,17 @@ class FacultyController extends Controller
             return redirect()->route($this->current_route . '.home')->with('error', 'You are not Authorized for this action!');
         }
     }
+
+    // for ajax 
+    public function getFacultyDepartments($facultyId)
+    {
+        // Find the faculty by ID
+        $faculty = Department::find($facultyId);
+
+        // Get the departments associated with the university
+        $departments = $faculty->facultyDepartment()->pluck('name', 'id');
+
+        // Return the departments as a JSON response
+        return response()->json($departments);
+    }
 }

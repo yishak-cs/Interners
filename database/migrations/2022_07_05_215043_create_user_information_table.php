@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('university')->nullable();
             $table->string('department')->nullable();
-            $table->string('degree')->nullable();
             $table->text('about_me')->nullable();
             $table->string('application_letter_file_path')->nullable();
             $table->string('application_acceptance_file_path')->nullable();

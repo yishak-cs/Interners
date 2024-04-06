@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item {{ (request()->is('company/department*')) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ (request()->is('company/department*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             Departments
                             <i class="right fas fa-angle-left"></i>

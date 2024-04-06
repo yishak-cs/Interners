@@ -54,7 +54,7 @@ class UserInformationController extends Controller
                 'city' => 'string|nullable',
                 'university' => 'string|nullable',
                 'department' => 'string|nullable',
-                'degree' => 'string|nullable',
+                'faculty_department'=>'string|nullable',
                 'about_me' => 'string|nullable',
             ]);
 
@@ -69,6 +69,7 @@ class UserInformationController extends Controller
             if ($data->save() && $user->update([
                 'university_id' => ($request->get('university')) ?? $user->university_id,
                 'department_id'=> ($request->get('department')) ?? $user->department_id,
+                'fdepartment_id'=>($request->get('faculty_department')) ?? $user->fdepartment_id,
             ])) {
                 return redirect()->route($this->current_route . '.profile')->with(['success' => "User Information created successfully", 'setting_page' => true]);
             } else {
@@ -102,6 +103,7 @@ class UserInformationController extends Controller
             'phone_number' => 'string|nullable',
             'city' => 'string|nullable',
             'university' => 'string|nullable',
+            'faculty_department'=>'string|nullable',
             'department' => 'string|nullable',
             'about_me' => 'string|nullable',
         ]);
@@ -114,6 +116,7 @@ class UserInformationController extends Controller
         if ($user_information->update($request->all()) && $user->update([
             'university_id' => ($request->get('university')) ?? $user->university_id,
             'department_id'=> ($request->get('department')) ?? $user->department_id,
+            'fdepartment_id'=>($request->get('faculty_department')) ?? $user->fdepartment_id
         ])) {
             return redirect()->route($this->current_route . '.profile')->with(['success' => "User Information updated successfully", 'setting_page' => true]);
         } else {

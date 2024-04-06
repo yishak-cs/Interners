@@ -95,23 +95,17 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>University</label>
-                                                <select name="university" id="university-dropdown"
-                                                    class="form-control @error('degree') is-invalid @enderror select2"
-                                                    autofocus required>
-                                                    <option>None</option>
-                                                    @foreach ($universities as $university)
-                                                        <option value="{{ $university->id }}">{{ $university->name }}
-                                                        </option>
-                                                    @endforeach
+                                                <label>Faculty</label>
+                                                <select name="department" id="department-dropdown"
+                                                    class="form-control select2" required disabled>
+                                                    <option value="">Select Faculty</option>
                                                 </select>
-                                                @error('degree')
+                                                @error('department')
                                                     <span class="text-danger" role="alert">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
-
 
                                         </div>
                                         <div class="col-md-4">
@@ -155,18 +149,20 @@
                                                     </span>
                                                 @enderror
                                             </div>
-
+                                            {{-- department trial --}}
                                             <div class="form-group">
                                                 <label>Department</label>
-                                                <select name="department" id="department-dropdown" class="form-control select2" required disabled>
+                                                <select name="faculty_department" id="FD-dropdown"
+                                                    class="form-control select2" required disabled>
                                                     <option value="">Select Department</option>
                                                 </select>
-                                                @error('department')
+                                                @error('faculty_department')
                                                     <span class="text-danger" role="alert">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
+                                            {{-- end trial --}}
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -196,12 +192,29 @@
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group">
+                                                <label>University</label>
+                                                <select name="university" id="university-dropdown"
+                                                    class="form-control @error('degree') is-invalid @enderror select2"
+                                                    autofocus required>
+                                                    <option>None</option>
+                                                    @foreach ($universities as $university)
+                                                        <option value="{{ $university->id }}">{{ $university->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('degree')
+                                                    <span class="text-danger" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <textarea id="about_me" type="text" class="form-control @error('about_me') is-invalid @enderror"
-                                                    name="about_me" autocomplete="about_me" placeholder="Type semthing about you...">{{ Auth::user()->information && Auth::user()->information->about_me ? Auth::user()->information->about_me : '' }}</textarea>
+                                                <textarea id="about_me" type="text" class="form-control @error('about_me') is-invalid @enderror" name="about_me"
+                                                    autocomplete="about_me" placeholder="Type semthing about you...">{{ Auth::user()->information && Auth::user()->information->about_me ? Auth::user()->information->about_me : '' }}</textarea>
                                             </div>
                                         </div>
 
@@ -226,29 +239,91 @@
 @push('scripts')
     <!-- JavaScript to handle university dropdown change -->
     <script>
- $(document).ready(function() {
-    $('#university-dropdown').change(function() {
-        var universityId = $(this).val();
-        // Make sure a university is selected
-        if (universityId) {
-            $.ajax({
-                url: '/user/profile/get-departments/' + universityId,
-                type: 'GET',
-                success: function(departments) {
-                    $('#department-dropdown').empty().removeAttr('disabled');
-                    $.each(departments, function(key, value) {
-                        $('#department-dropdown').append('<option value="' + key + '">' + value + '</option>');
+        $(document).ready(function() {
+            // Function to load departments based on the selected university
+            function loadDepartments(universityId) {
+                if (universityId) {
+                    $.ajax({
+                        url: '/user/profile/get-departments/' + universityId,
+                        type: 'GET',
+                        success: function(departments) {
+                            $('#department-dropdown').empty().removeAttr('disabled');
+                            $('#FD-dropdown').append('<option value="">Select Faculty</option>');
+                            $.each(departments, function(key, value) {
+                                $('#department-dropdown').append('<option value="' +
+                                    key + '">' + value + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error:', status, error);
+                        }
                     });
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', status, error); // This will log any AJAX errors
+                } else {
+                    $('#department-dropdown').empty().attr('disabled', 'disabled');
                 }
-            });
-        } else {
-            $('#department-dropdown').empty().attr('disabled', 'disabled');
-        }
-    });
-});
+            }
 
+            // Trigger change event on university dropdown if it has a value
+            var selectedUniversity = $('#university-dropdown').val();
+            if (selectedUniversity) {
+                loadDepartments(selectedUniversity);
+            }
+
+            // Bind change event to university dropdown
+            $('#university-dropdown').change(function() {
+                var universityId = $(this).val();
+                loadDepartments(universityId);
+            });
+        });
+    </script>
+
+
+    <script>
+        $(window).on('load', function() {
+            // Function to load faculty departments based on the selected faculty
+            function loadFacultyDepartments(facultyId) {
+                if (facultyId) {
+                    $.ajax({
+                        url: '/user/profile/get-facultydepartments/' + facultyId,
+                        type: 'GET',
+                        success: function(departments) {
+                            $('#FD-dropdown').empty().removeAttr('disabled');
+
+                            $.each(departments, function(key, value) {
+                                $('#FD-dropdown').append('<option value="' + key + '">' +
+                                    value + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error:', status, error);
+                        }
+                    });
+                } else {
+                    $('#FD-dropdown').empty().attr('disabled', 'disabled');
+                }
+            }
+
+            // Trigger change event on department dropdown if it has a value
+            var selectedFaculty = $('#department-dropdown').val();
+            if (selectedFaculty) {
+                loadFacultyDepartments(selectedFaculty);
+            }
+
+            /*
+                    
+               var selectedFaculty = $('#department-dropdown').val();
+                if (selectedFaculty) {
+                    $('#department-dropdown').trigger('change');
+                }
+               });
+            
+            */
+
+            // Bind change event to department dropdown
+            $('#department-dropdown').change(function() {
+                var facultyId = $(this).val();
+                loadFacultyDepartments(facultyId);
+            });
+        });
     </script>
 @endpush
