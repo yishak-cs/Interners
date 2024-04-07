@@ -72,7 +72,7 @@
                         <div class="icon">
                             <i class="fas fa-user-graduate"></i>
                         </div>
-                        <a href="{{ route('faculty.intern.list') }}" class="small-box-footer">
+                        <a href="#" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

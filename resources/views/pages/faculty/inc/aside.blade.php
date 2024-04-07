@@ -71,6 +71,15 @@
                     </ul>
                 </li>
                 {{-- department --}}
+                <li class="nav-item">
+                    <a href="{{ route('faculty.student.list') }}"
+                        class="nav-link {{ request()->is('faculty/students/*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Students
+                        </p>
+                    </a>
+                </li>
                 {{-- evaluation trial --}}
                 <li class="nav-item {{ request()->is('faculty/evaluation*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/evaluation*') ? 'active' : '' }}">
@@ -123,27 +132,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('faculty.intern.list') }}"
-                        class="nav-link {{ request()->is('faculty/intern/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-graduate"></i>
-                        <p>
-                            Interns
-                        </p>
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="{{ route('faculty.student.list') }}"
-                        class="nav-link {{ request()->is('faculty/students/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Students
-                        </p>
-                    </a>
-                </li>
-
                 <li class="nav-item {{ request()->is('faculty/reports*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/reports*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-file-pdf"></i>

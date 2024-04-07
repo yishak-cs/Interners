@@ -183,13 +183,6 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('faculty.profile.password');
         });
 
-        // faculty/intern routes
-        Route::prefix('/intern')->group(function () {
-            Route::get('/list', [InternController::class, 'departmentIndex'])->name('faculty.intern.list');
-            Route::get('/view/{intern}', [InternController::class, 'show'])->name('faculty.intern.view');
-            Route::get('/delete/{intern}', [InternController::class, 'destroy'])->name('faculty.intern.delete');
-        });
-
         // faculty/students routes
         Route::prefix('/students')->group(function () {
             Route::get('/list', [StudentController::class, 'index'])->name('faculty.student.list');
