@@ -248,7 +248,7 @@
                         type: 'GET',
                         success: function(departments) {
                             $('#department-dropdown').empty().removeAttr('disabled');
-                            $('#FD-dropdown').append('<option value="">Select Faculty</option>');
+                            $('#department-dropdown').append('<option value="">Select Faculty</option>');
                             $.each(departments, function(key, value) {
                                 $('#department-dropdown').append('<option value="' +
                                     key + '">' + value + '</option>');
@@ -279,7 +279,7 @@
 
 
     <script>
-        $(window).on('load', function() {
+       
             // Function to load faculty departments based on the selected faculty
             function loadFacultyDepartments(facultyId) {
                 if (facultyId) {
@@ -307,23 +307,12 @@
             var selectedFaculty = $('#department-dropdown').val();
             if (selectedFaculty) {
                 loadFacultyDepartments(selectedFaculty);
-            }
-
-            /*
-                    
-               var selectedFaculty = $('#department-dropdown').val();
-                if (selectedFaculty) {
-                    $('#department-dropdown').trigger('change');
-                }
-               });
-            
-            */
+            }            
 
             // Bind change event to department dropdown
             $('#department-dropdown').change(function() {
                 var facultyId = $(this).val();
                 loadFacultyDepartments(facultyId);
             });
-        });
     </script>
 @endpush
