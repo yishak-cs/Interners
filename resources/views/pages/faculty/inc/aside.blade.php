@@ -93,45 +93,20 @@
                         <li class="nav-item">
                             <a href="{{ route('faculty.evaluation.add') }}"
                                 class="nav-link {{ request()->is('faculty/evaluations/add') ? 'active' : '' }}">
-                                <i class="fas fa-list nav-icon"></i>
+                                <i class="fas fa-plus nav-icon"></i>
                                 <p>Evaluation Add</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('faculty.evaluation.add') }}"
-                                class="nav-link {{ request()->is('faculty/evaluation/list*') ? 'active' : '' }}">
-                                <i class="fas fa-filter nav-icon"></i>
+                            <a href="{{ route('faculty.evaluation.list') }}"
+                                class="nav-link {{ request()->is('faculty/evaluations/list*')||request()->is('faculty/evaluations/view*') ? 'active' : '' }}">
+                                <i class="fas fa-list nav-icon"></i>
                                 <p>Evaluation list</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 {{-- end evaluation --}}
-                <li class="nav-item {{ request()->is('faculty/application*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('faculty/application*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        <p>
-                            Applications
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.application.list') }}"
-                                class="nav-link {{ request()->is('faculty/application/list') || request()->is('faculty/application/view*') ? 'active' : '' }}">
-                                <i class="fas fa-list nav-icon"></i>
-                                <p>Applications List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.application.filter') }}"
-                                class="nav-link {{ request()->is('faculty/application/filter*') ? 'active' : '' }}">
-                                <i class="fas fa-filter nav-icon"></i>
-                                <p>Filters</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
                 <li class="nav-item {{ request()->is('faculty/reports*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('faculty/reports*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-file-pdf"></i>

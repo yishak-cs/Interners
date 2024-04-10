@@ -393,7 +393,7 @@ class Controller extends BaseController
             if (!($data instanceof Evaluation)) return false;
 
             // check if the faculty owns the evaluation
-            if ($data->deparment_id === auth()->user()->department->id) {
+            if ($data->department_id === auth()->user()->department->id) {
                 return true;
             } else {
                 return false;
