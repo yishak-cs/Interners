@@ -27,39 +27,9 @@
             <div class="row">
                 
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small card -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $stat_counts['applications'] }}</h3>
-
-                            <p>Applications</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <a href="{{ route('faculty.application.list') }}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
+    
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small card -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $stat_counts['pending'] }}</h3>
-
-                            <p>Pending</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-th"></i>
-                        </div>
-                        <a href="{{ route('faculty.application.filter', ['status'=>0]) }}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
+           
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small card -->

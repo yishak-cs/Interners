@@ -165,16 +165,8 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::get('/delete/{faculty_department}', [FacultyDepartmentController::class, 'destroy'])->name('faculty.department.delete');
         });
 
-        // faculty/application route
-        Route::prefix('/application')->group(function () {
-            Route::get('/list', [UserApplicationController::class, 'departmentIndex'])->name('faculty.application.list');
-            Route::get('/view/{userapplication}', [UserApplicationController::class, 'show'])->name('faculty.application.view');
-            Route::get('/accept/{userapplication}', [UserApplicationController::class, 'acceptApplication'])->name('faculty.application.accept');
-            Route::get('/reject/{userapplication}', [UserApplicationController::class, 'rejectApplication'])->name('faculty.application.reject');
-            Route::get('/reset/{userapplication}', [UserApplicationController::class, 'resetApplication'])->name('faculty.application.reset');
-            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('faculty.application.delete');
-            Route::get('/filter', [UserApplicationController::class, 'filter'])->name('faculty.application.filter');
-        });
+        // faculty/application route was here
+
 
         // faculty/profile routes
         Route::prefix('/profile')->group(function () {
@@ -201,7 +193,10 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
                 return view('pages.faculty.evaluation.add');
             })->name('faculty.evaluation.add');
             Route::Post('/add', [EvaluationController::class, 'store'])->name('faculty.evaluation.store');
-            Route::Post('/list', [EvaluationController::class, 'index'])->name('faculty.evaluation.list');
+            Route::get('/list', [EvaluationController::class, 'index'])->name('faculty.evaluation.list');
+            Route::get('/view/{evaluation}', [EvaluationController::class, 'show'])->name('faculty.evaluation.view');
+            Route::get('/delete/{evaluation}', [EvaluationController::class, 'destroy'])->name('faculty.evaluation.delete');
+            Route::post('/update/status/{evaluation}', [EvaluationController::class, 'updateStatus'])->name('faculty.evaluation.update.status');
         });
     });
 });
