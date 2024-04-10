@@ -157,7 +157,7 @@
         @endif
         @endif
 
-        @if (!request()->is('user/home') && request()->is('*/home'))
+        @if (!request()->is('user/home') && !request()->is('faculty/home') && request()->is('*/home'))
             @if (session('error'))
                 Toast.fire({
                     icon: 'error',
@@ -512,83 +512,4 @@
         @endif
 
     @endif
-
-    @if (request()->is('admin/profile*'))
-
-    function nodeStopServer(e){
-        $(e).html(`<i class="fas fa-sync-alt fa-spin"></i>`);
-        let api = '{{ env('APP_URL') }}/api/node/stop';
-        let mes = $('#nodeServerMessageViewr');
-        let main = $('#nodeServerBodyViewr');
-        $.post(api, function(data){
-            if(data.status == 'success'){
-                mes.addClass('alert alert-success alert-dismissible');
-                main.html(`<div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="callout callout-danger">
-                        <p>The Node server is currently Down!</p>
-                    </div>
-                    <button onclick="nodeStartServer(this)" class="btn btn-success float-right">Start Server</button>
-                </div>
-                <div class="col-md-3"></div>`);
-            }else{
-                mes.addClass('alert alert-danger alert-dismissible');
-            }
-            mes.html(`
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            ${data.message}
-            `);
-        });
-    }
-
-    function nodeStartServer(e){
-        $(e).html(`<i class="fas fa-sync-alt fa-spin"></i>`);
-        let api = '{{ env('APP_URL') }}/api/node/start';
-        let mes = $('#nodeServerMessageViewr');
-        let main = $('#nodeServerBodyViewr');
-        $.post(api, function(data){
-            if(data.status == 'success'){
-                mes.addClass('alert alert-success alert-dismissible');
-                main.html(`<div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="callout callout-success">
-                        <p>The Node server is Up and Running!</p>
-                    </div>
-                </div>
-                <div class="col-md-3"></div>
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Mode</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyNode">
-                            <tr>
-                                <td>1</td>
-                                <td>${data.data.name}</td>
-                                <td>${data.data.mode}</td>
-                                <td>${data.data.status}</td>
-                                <td>${data.data.date}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button onclick="nodeStopServer(this)" class="btn btn-danger float-right">Stop Server</button>
-                </div>
-                <div class="col-md-2"></div>`);
-            }else{
-                mes.addClass('alert alert-danger alert-dismissible');
-            }
-            mes.html(`
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            ${data.message}
-            `);
-        });
-    }
-    @endif
-</script>
+    </script>

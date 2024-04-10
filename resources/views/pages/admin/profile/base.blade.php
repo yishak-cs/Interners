@@ -33,7 +33,6 @@
                             <li class="nav-item"><a class="nav-link @if (!session('setting_page') && !session('upload_page') && !session('password_page')) active @endif" href="#detail" data-toggle="tab">Detail</a></li>
                             <li class="nav-item"><a class="nav-link @if (session('setting_page')) active @endif" href="#setting" data-toggle="tab">Settings</a></li>
                             <li class="nav-item"><a class="nav-link @if (session('password_page')) active @endif" href="#password" data-toggle="tab">password</a></li>
-                            <li class="nav-item"><a class="nav-link @if (session('config_page')) active @endif" href="#config" data-toggle="tab">Configs</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -48,10 +47,6 @@
 
                             <div class="tab-pane @if (session('password_page')) active @endif" id="password">
                                 @include('pages.admin.profile.password')
-                            </div>
-
-                            <div class="tab-pane @if (session('config_page')) active @endif" id="config">
-                                @include('pages.admin.profile.config')
                             </div>
                         </div>
                     </div>

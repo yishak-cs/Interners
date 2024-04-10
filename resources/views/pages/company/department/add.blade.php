@@ -59,7 +59,7 @@
                                             <button type="button" class="step-trigger" role="tab"
                                                 aria-controls="first-step" id="first-step-trigger" aria-selected="true">
                                                 <span class="bs-stepper-circle">1</span>
-                                                <span class="bs-stepper-label">Add The Faculty Head</span>
+                                                <span class="bs-stepper-label">Add The Department Head</span>
                                             </button>
                                         </div>
                                         <div class="line"></div>
@@ -68,7 +68,7 @@
                                                 aria-controls="second-step" id="second-step-trigger" aria-selected="false"
                                                 disabled="disabled">
                                                 <span class="bs-stepper-circle">2</span>
-                                                <span class="bs-stepper-label">Faculty Detail</span>
+                                                <span class="bs-stepper-label">Department Detail</span>
                                             </button>
                                         </div>
                                     </div>
@@ -185,9 +185,9 @@
                                                             name="company_id" id="company_id" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Faculty Name</label> <i
+                                                        <label>Department Name</label> <i
                                                             class="text-danger font-weight-bold">*</i>
-                                                        <input id="name" placeholder="Enter Faculty Name"
+                                                        <input id="name" placeholder="Enter Department Name"
                                                             type="text"
                                                             class="form-control @error('name') is-invalid @enderror"
                                                             name="name" value="{{ old('name') }}" required
