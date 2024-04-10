@@ -149,7 +149,7 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
 /** faculty Route Start */
 Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function () {
     Route::prefix('/faculty')->group(function () {
-        Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
+        Route::get('/home', [DashboardController::class, 'facultyIndex'])->name('faculty.home');
 
         // faculty/internship routes used to be here
 

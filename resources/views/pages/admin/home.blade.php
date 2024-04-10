@@ -142,7 +142,6 @@
                                         <th>Applicant</th>
                                         <th>Internship</th>
                                         <th>Date</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -151,15 +150,10 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($application->user->getName()) }}</td>
-                                            <td><a href="{{ route('admin.internship.view', $application->internship->id) }}">{{ $application->internship->title }}</a></td>
+                                            
                                             <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>
                                             <td>
-                                                <a href="{{ route('admin.application.delete', $application->id) }}" onclick="if(confirm('Are you sure, you want to delete this Application?') == false){event.preventDefault()}">
-                                                    <button class="btn btn-danger btn-xs btn-flat">
-                                                        <i class="fas fa-trash"></i>
-                                                        Delete
-                                                    </button>
-                                                </a>
+                                 
                                             </td>
                                         </tr>
                                     @endforeach
