@@ -4,10 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Route;
 
 class EvaluationController extends Controller
 {
+    /**
+     * current route root extractor
+     *
+     * @var string $current_route
+     */
+    public ?string $current_route = null;
 
+    public function __construct()
+    {
+        $this->current_route = explode('.', Route::currentRouteName())[0];
+    }
+
+    public function index()
+    {
+        $evaluations = Evaluation::where('department_id', auth()->user()->department->id)->get();
+
+        return view('pages.' . $this->current_route . '.evaluation.list', ['evaluations' => $evaluations]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -41,6 +61,44 @@ class EvaluationController extends Controller
             return response([
                 'message' => 'Something went wrong, please try again!'
             ], 500);
+        }
+    }
+        
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Evaluation $evaluation
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    public function show(Evaluation $evaluation)
+    {
+    
+        if ($this->checkAuthorizations(self::MODEL_EVALUATION, Auth::user()->type, $evaluation, self::ACTION_VIEW)) {
+            return view('pages.' . $this->current_route . '.evaluation.view',['evaluation'=> $evaluation]);
+        } else {
+            return redirect()->back()->with('error', 'You are not Authorized for this action!');
+        }
+    }
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Evalation $evaluation
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Evaluation $evaluation): RedirectResponse
+    {
+        // check authorization
+        if($this->checkAuthorizations(self::MODEL_EVALUATION, auth()->user()->type, $evaluation, self::ACTION_DELETE)){
+
+            // delete the instance and return message
+            if($evaluation->delete()){
+                return redirect()->back()->with('success', "Evaluation has been deleted successfully!");
+            }else{
+                return redirect()->back()->with('error', 'Something went wrong, please try again!');
+            }
+        }else{
+            return redirect()->route($this->current_route.'.home')->with('error', 'You are not Authorized for this action!');
         }
     }
 }
