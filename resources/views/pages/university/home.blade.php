@@ -29,24 +29,7 @@
                     <!-- small card -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $stat_counts['internships'] }}</h3>
-
-                            <p>Internships</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <a href="{{ route('university.internship.list') }}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small card -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $stat_counts['departments'] }}</h3>
+                            <h3>{{ $stat_counts['faculties'] }}</h3>
 
                             <p>Faculties</p>
                         </div>
@@ -61,16 +44,33 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small card -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ $stat_counts['applications'] }}</h3>
+                            <h3>{{ $stat_counts['departments'] }}</h3>
 
-                            <p>Applications</p>
+                            <p>Departments</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-sitemap"></i>
                         </div>
-                        <a href="{{ route('university.application.list') }}" class="small-box-footer">
+                        <a href="#" class="small-box-footer">
+                            More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small card -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{ $stat_counts['students'] }}</h3>
+
+                            <p>Students</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -80,19 +80,18 @@
                     <!-- small card -->
                     <div class="small-box bg-secondary">
                         <div class="inner">
-                            <h3>{{ $stat_counts['interns'] }}</h3>
+                            <h3>{{ $stat_counts['interning_students'] }}</h3>
 
-                            <p>Interns</p>
+                            <p>Interning students</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-graduate"></i>
                         </div>
-                        <a href="{{ route('university.intern.list') }}" class="small-box-footer">
+                        <a href="#" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
             </div>
 
             <div class="row">
@@ -106,22 +105,25 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <p class="d-flex flex-column">
-                                    <span class="text-bold text-lg">{{ array_sum(array_values($application_count['thisWeek'])) }}</span>
+                                    <span
+                                        class="text-bold text-lg">{{ array_sum(array_values($pending_application_count['thisWeek'])) }}</span>
                                     <span>This week applications</span>
                                 </p>
                                 <p class="ml-auto d-flex flex-column text-right">
-                                    @if ($application_count['percentage'] < 0)
-                                    <span class="text-danger">
-                                        <i class="fas fa-arrow-down"></i> {{$application_count['percentage']}}%
-                                    </span>
-                                    @elseif ($application_count['percentage'] == 0)
-                                    <span class="text-warning">
-                                        <i class="fas fa-angle-left"></i> {{$application_count['percentage']}}%
-                                    </span>
+                                    @if ($pending_application_count['percentage'] < 0)
+                                        <span class="text-danger">
+                                            <i class="fas fa-arrow-down"></i>
+                                            {{ $pending_application_count['percentage'] }}%
+                                        </span>
+                                    @elseif ($pending_application_count['percentage'] == 0)
+                                        <span class="text-warning">
+                                            <i class="fas fa-angle-left"></i>
+                                            {{ $pending_application_count['percentage'] }}%
+                                        </span>
                                     @else
-                                    <span class="text-success">
-                                        <i class="fas fa-arrow-up"></i> {{$application_count['percentage']}}%
-                                    </span>
+                                        <span class="text-success">
+                                            <i class="fas fa-arrow-up"></i> {{ $pending_application_count['percentage'] }}%
+                                        </span>
                                     @endif
                                     <span class="text-muted">Since last week</span>
                                 </p>
@@ -145,43 +147,39 @@
                     </div>
                     <!-- /.card -->
 
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">Pending Applications</h3>
+                    <div class="card card-default collapsed-card">
+                        <div class="card-header ui-sortable-handle" style="cursor: move;">
+                            <h3 class="card-title">Students</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                        class="fas fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Applicant</th>
-                                        <th>Internship</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
+                                        <th>Student</th>
+                                        <th>Faculty</th>
+                                        <th>Department</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($applications) > 0)
-                                    @foreach ($applications as $application)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($application->user->getName()) }}</td>
-                                            <td><a href="{{ route('university.internship.view', $application->internship->id) }}">{{ $application->internship->title }}</a></td>
-                                            <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>
-                                            <td>
-                                                <a href="{{ route('university.application.delete', $application->id) }}" onclick="if(confirm('Are you sure, you want to delete this Application?') == false){event.preventDefault()}">
-                                                    <button class="btn btn-danger btn-xs btn-flat">
-                                                        <i class="fas fa-trash"></i>
-                                                        Delete
-                                                    </button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @if (count($students) > 0)
+                                        @foreach ($students as $student)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ ucwords($student->getName()) }}</td>
+                                                <td>{{ $student->userDepartment->name }}</td>
+                                                <td>{{ $student->fdepartment->name }}</td>
+                                            </tr>
+                                        @endforeach
                                     @else
-                                    <tr>
-                                        <td colspan="5" class="text-center">No Pending Applications</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="5" class="text-center">No Students Yet</td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
@@ -194,3 +192,84 @@
         <!-- /.container-fluid -->
     </section>
 @endsection
+@push('scripts')
+    <script>
+        @if (session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: {!! "'" . session('error') . "'" !!}
+            })
+        @endif
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+
+        var mode = 'index'
+        var intersect = true
+        var $applicationsChart = $('#applications-chart')
+        // eslint-disable-next-line no-unused-vars
+        var applicationsChart = new Chart($applicationsChart, {
+            data: {
+                labels: {!! json_encode(array_keys($pending_application_count['lastWeek'])) !!},
+                datasets: [{
+                        type: 'line',
+                        data: {!! json_encode(array_values($pending_application_count['thisWeek'])) !!},
+                        backgroundColor: 'transparent',
+                        borderColor: '#007bff',
+                        pointBorderColor: '#007bff',
+                        pointBackgroundColor: '#007bff',
+                        fill: false
+                        // pointHoverBackgroundColor: '#007bff',
+                        // pointHoverBorderColor : '#007bff'
+                    },
+                    {
+                        type: 'line',
+                        data: {!! json_encode(array_values($pending_application_count['lastWeek'])) !!},
+                        backgroundColor: 'tansparent',
+                        borderColor: '#ced4da',
+                        pointBorderColor: '#ced4da',
+                        pointBackgroundColor: '#ced4da',
+                        fill: false
+                        // pointHoverBackgroundColor: '#ced4da',
+                        // pointHoverBorderColor : '#ced4da'
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: mode,
+                    intersect: intersect
+                },
+                hover: {
+                    mode: mode,
+                    intersect: intersect
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: true,
+                            lineWidth: '4px',
+                            color: 'rgba(0, 0, 0, .2)',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: $.extend({
+                            beginAtZero: true
+                        }, ticksStyle)
+                    }],
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: ticksStyle
+                    }]
+                }
+            }
+        })
+    </script>
+@endpush

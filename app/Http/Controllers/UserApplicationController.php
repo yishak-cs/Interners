@@ -42,30 +42,6 @@ class UserApplicationController extends Controller
     }
 
     /**
-     * Display a listing of the resource by university.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function universityIndex(): View
-    {
-       /**
-        * all available applications in the university
-        *
-        * @var \App\Models\UserApplication $applications
-        */
-        $applications =  UserApplication::whereIn('internship_id', function($query) {
-            $query->select('id')
-            ->from('internships')
-            ->whereIn('department_id', function($query2){
-                $query2->select('id')
-                ->from('departments')
-                ->where('university_id', auth()->user()->university->id);
-            });
-        })->get();
-
-        return view('pages.university.application.list', ['applications'=>$applications]);
-    }
-    /**
      * Display a listing of the resource by company.
      *
      * @return \Illuminate\View\View

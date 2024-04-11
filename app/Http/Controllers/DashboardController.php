@@ -116,20 +116,17 @@ class DashboardController extends Controller
          * @var array<string, int> $stat_counts
          */
         $stat_counts = [
-            'departments' => count(Department::where('university_id', auth()->user()->university->id)->get()),
-            'internships' => count(Internship::whereIn('department_id', function ($query) {
+            'faculties' => count(Department::where('university_id', auth()->user()->university->id)->get()),
+            'students' => count(User::where('university_id', auth()->user()->university->id)->get()),
+            'departments' => count(FacultyDepartment::whereIn('faculty_id', function ($query){
                 $query->select('id')
-                    ->from('departments')
-                    ->where('university_id', auth()->user()->university->id);
+                ->from('departments')
+                ->where('university_id', auth()->user()->university->id);
             })->get()),
-            'interns' => count(UserApplication::whereIn('internship_id', function ($query) {
+            'interning_students' => count(UserApplication::whereIn('user_id', function ($query) {
                 $query->select('id')
-                    ->from('internships')
-                    ->whereIn('department_id', function ($query2) {
-                        $query2->select('id')
-                            ->from('departments')
-                            ->where('university_id', auth()->user()->university->id);
-                    });
+                    ->from('users')
+                    ->whereIn('university_id', auth()->user()->university);
             })->where('status', '1')->get()),
             'applications' => count(UserApplication::whereIn('internship_id', function ($query) {
                 $query->select('id')
@@ -168,32 +165,26 @@ class DashboardController extends Controller
          *
          * @var array<int <string, int>> $application_count
          */
-        $application_count = [
+        $pending_application_count = [
             'thisWeek' => [],
             'lastWeek' => []
         ];
 
         for ($i = 0; $i < 7; $i++) {
             if ($current_week->startOfWeek()->addDays($i)->isPast()) {
-                $application_count['thisWeek'][$week_dates[$i]] = count(UserApplication::whereIn('internship_id', function ($query) {
+                $pending_application_count['thisWeek'][$week_dates[$i]] = count(UserApplication::whereIn('user_id', function ($query) {
                     $query->select('id')
-                        ->from('internships')
-                        ->whereIn('department_id', function ($query2) {
-                            $query2->select('id')
-                                ->from('departments')
-                                ->where('university_id', auth()->user()->university->id);
-                        });
-                })->whereDate('created_at', $current_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
+                        ->from('users')
+                        ->where('department_id', auth()->user()->university->id);
+                })->where('status', '0')
+                    ->whereDate('created_at', $current_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
             }
-            $application_count['lastWeek'][$week_dates[$i]] = count(UserApplication::whereIn('internship_id', function ($query) {
+            $pending_application_count['lastWeek'][$week_dates[$i]] = count(UserApplication::whereIn('user_id', function ($query) {
                 $query->select('id')
-                    ->from('internships')
-                    ->whereIn('department_id', function ($query2) {
-                        $query2->select('id')
-                            ->from('departments')
-                            ->where('university_id', auth()->user()->university->id);
-                    });
-            })->whereDate('created_at', $last_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
+                    ->from('users')
+                    ->where('department_id', auth()->user()->university->id);
+            })->where('status', '0')
+                ->whereDate('created_at', $last_week->startOfWeek()->addDays($i)->format('Y-m-d H:i:s'))->get());
         }
 
         /**
@@ -201,25 +192,17 @@ class DashboardController extends Controller
          *
          * Percent increase (or decrease) = ((thisWeek - lastWeek)/lastWeek) * 100
          */
-        $application_count['percentage'] = (array_sum(array_values($application_count['lastWeek'])) == 0) ? ((array_sum(array_values($application_count['thisWeek'])) == 0) ? 0 : 100) : round(((array_sum(array_values($application_count['thisWeek'])) - array_sum(array_values($application_count['lastWeek']))) / array_sum(array_values($application_count['lastWeek']))) * 100, 2);
-
+        $pending_application_count['percentage'] = (array_sum(array_values($pending_application_count['lastWeek'])) == 0) ? ((array_sum(array_values($pending_application_count['thisWeek'])) == 0) ? 0 : 100) : round(((array_sum(array_values($pending_application_count['thisWeek'])) - array_sum(array_values($pending_application_count['lastWeek']))) / array_sum(array_values($pending_application_count['lastWeek']))) * 100, 2);
+        
         /**
          * all pending applications
          *
          * @var \App\Models\UserApplication $applications
          */
-        $applications =  UserApplication::whereIn('internship_id', function ($query) {
-            $query->select('id')
-                ->from('internships')
-                ->whereIn('department_id', function ($query2) {
-                    $query2->select('id')
-                        ->from('departments')
-                        ->where('university_id', auth()->user()->university->id);
-                });
-        })->where('status', '0')->get();
+        $students=User::where('university_id', auth()->user()->university->id)->get();
 
         // dd($application_count);
-        return view('pages.university.home', ['applications' => $applications, 'stat_counts' => $stat_counts, 'application_count' => $application_count]);
+        return view('pages.university.home', ['students' => $students, 'stat_counts' => $stat_counts, 'pending_application_count' => $pending_application_count]);
     }
     /**
      * Display a listing of the resource for company.

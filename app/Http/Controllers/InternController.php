@@ -21,30 +21,6 @@ class InternController extends Controller
     }
 
     /**
-     * Display a listing of the resource for university.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function universityIndex(): View
-    {
-        /**
-         * all available interns
-         *
-         * @var \App\Models\UserApplication $interns
-         */
-        $interns =  UserApplication::whereIn('internship_id', function($query) {
-            $query->select('id')
-            ->from('internships')
-            ->whereIn('department_id', function($query2){
-                $query2->select('id')
-                ->from('departments')
-                ->where('university_id', auth()->user()->university->id);
-            });
-        })->where('status', '1')->get();
-
-        return view('pages.university.intern.list', ['interns'=> $interns]);
-    }
-    /**
      * Display a listing of the resource for company.
      *
      * @return \Illuminate\View\View
@@ -93,7 +69,7 @@ class InternController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $university
+     * @param  int $intern
      * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function show(int $intern): View|RedirectResponse
