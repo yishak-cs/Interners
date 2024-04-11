@@ -157,7 +157,7 @@
         @endif
         @endif
 
-        @if (!request()->is('user/home') && !request()->is('faculty/home') && request()->is('*/home'))
+        @if (!request()->is('university/home') && !request()->is('user/home') && !request()->is('faculty/home') && request()->is('*/home'))
             @if (session('error'))
                 Toast.fire({
                     icon: 'error',
