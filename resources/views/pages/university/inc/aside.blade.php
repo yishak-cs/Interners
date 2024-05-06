@@ -90,24 +90,9 @@
                         </li>
                     </ul>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="{{ route('university.internship.list') }}" class="nav-link {{ (request()->is('university/internship*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>
-                            Internships
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('university.application.list') }}" class="nav-link {{ (request()->is('university/application*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        <p>
-                            Applications
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('university.intern.list') }}" class="nav-link {{ (request()->is('university/intern/*')) ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ (request()->is('university/intern/*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Interns

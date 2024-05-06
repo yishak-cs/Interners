@@ -102,7 +102,7 @@ class StudentController extends Controller
      /**
      * Remove the specified resource from storage.
      *
-     * @param  int $intern
+     * @param  User $student
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $student): RedirectResponse
@@ -111,7 +111,7 @@ class StudentController extends Controller
         if($this->checkAuthorizations(self::MODEL_STUDENTS, auth()->user()->type, $student, self::ACTION_DELETE)){
             // delete the instance and return message
             if($student->delete()){
-                return redirect()->back()->with('success', "Intern has been deleted successfully!");
+                return redirect()->back()->with('success', "Student has been deleted successfully!");
             }else{
                 return redirect()->back()->with('error', 'Something went wrong, please try again!');
             }

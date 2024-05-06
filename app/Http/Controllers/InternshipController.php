@@ -60,26 +60,6 @@ class InternshipController extends Controller
     }
 
     /**
-     * Display a listing of the resource that belong to one university.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function universityIndex(): View
-    {
-        /**
-         * all available internships
-         *
-         * @var \App\Models\Internship $internships
-         */
-        $internships =  Internship::whereIn('department_id', function ($query) {
-            $query->select('id')
-                ->from('departments')
-                ->where('university_id', auth()->user()->university->id);
-        })->get();
-
-        return view('pages.university.internship.list', ['internships' => $internships]);
-    }
-    /**
      * Display a listing of the resource that belong to one company.
      *
      * @return \Illuminate\View\View

@@ -149,7 +149,7 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
 /** faculty Route Start */
 Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function () {
     Route::prefix('/faculty')->group(function () {
-        Route::get('/home', [DashboardController::class, 'departmentIndex'])->name('faculty.home');
+        Route::get('/home', [DashboardController::class, 'facultyIndex'])->name('faculty.home');
 
         // faculty/internship routes used to be here
 
@@ -219,31 +219,15 @@ Route::middleware(['auth', 'verified', 'user-access:university'])->group(functio
             Route::get('/delete/{faculty}', [FacultyController::class, 'destroy'])->name('university.faculty.delete');
         });
 
-        // university/internship route
-        Route::prefix('/internship')->group(function () {
-            Route::get('/list', [InternshipController::class, 'universityIndex'])->name('university.internship.list');
-            Route::get('/view/{internship}', [InternshipController::class, 'show'])->name('university.internship.view');
-            Route::get('/start/{internship}', [InternshipController::class, 'start'])->name('university.internship.start');
-            Route::get('/delete/{internship}', [InternshipController::class, 'destroy'])->name('university.internship.delete');
-        });
+        // university/internship route was here
 
-        // university/application route
-        Route::prefix('/application')->group(function () {
-            Route::get('/list', [UserApplicationController::class, 'universityIndex'])->name('university.application.list');
-            Route::get('/delete/{userapplication}', [UserApplicationController::class, 'destroy'])->name('university.application.delete');
-        });
+        // university/application route was here
 
         // university/profile routes
         Route::prefix('/profile')->group(function () {
             Route::get('/', [UserController::class, 'profile'])->name('university.profile');
             Route::post('/setting', [UserInformationController::class, 'store'])->name('university.profile.setting');
             Route::post('/password/{user}', [UserController::class, 'passwordChange'])->name('university.profile.password');
-        });
-
-        // university/intern routes
-        Route::prefix('/intern')->group(function () {
-            Route::get('/list', [InternController::class, 'universityIndex'])->name('university.intern.list');
-            Route::get('/view/{intern}', [InternController::class, 'show'])->name('university.intern.view');
         });
 
         // university/reports route

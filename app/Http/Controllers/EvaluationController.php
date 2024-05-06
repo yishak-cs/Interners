@@ -63,7 +63,7 @@ class EvaluationController extends Controller
             ], 500);
         }
     }
-        
+
     /**
      * Display the specified resource.
      *
@@ -72,15 +72,15 @@ class EvaluationController extends Controller
      */
     public function show(Evaluation $evaluation)
     {
-    
+
         if ($this->checkAuthorizations(self::MODEL_EVALUATION, Auth::user()->type, $evaluation, self::ACTION_VIEW)) {
-            return view('pages.' . $this->current_route . '.evaluation.view',['evaluation'=> $evaluation]);
+            return view('pages.' . $this->current_route . '.evaluation.view', ['evaluation' => $evaluation]);
         } else {
             return redirect()->back()->with('error', 'You are not Authorized for this action!');
         }
     }
 
-        /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Evalation $evaluation
@@ -89,16 +89,39 @@ class EvaluationController extends Controller
     public function destroy(Evaluation $evaluation): RedirectResponse
     {
         // check authorization
-        if($this->checkAuthorizations(self::MODEL_EVALUATION, auth()->user()->type, $evaluation, self::ACTION_DELETE)){
+        if ($this->checkAuthorizations(self::MODEL_EVALUATION, auth()->user()->type, $evaluation, self::ACTION_DELETE)) {
 
             // delete the instance and return message
-            if($evaluation->delete()){
+            if ($evaluation->delete()) {
                 return redirect()->back()->with('success', "Evaluation has been deleted successfully!");
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'Something went wrong, please try again!');
             }
-        }else{
-            return redirect()->route($this->current_route.'.home')->with('error', 'You are not Authorized for this action!');
+        } else {
+            return redirect()->route($this->current_route . '.home')->with('error', 'You are not Authorized for this action!');
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Evaluation $evaluation
+     * @return RedirectResponse
+     */
+    public function updateStatus(Request $request, Evaluation $evaluation): RedirectResponse
+    {
+        // validating
+        $request->validate([
+            'status' => 'required|in:1,0'
+        ]);
+
+        if ($this->checkAuthorizations(self::MODEL_EVALUATION, auth()->user()->type, $evaluation, self::ACTION_UPDATE)) {
+            if ($evaluation->update(['status' => $request->input('status')])) {
+                return redirect()->back()->with('success', "Evaluation has been updated successfully!");
+            }
+            return redirect()->back()->with('error', 'Something went wrong, please try again!');
+        }
+        return redirect()->route($this->current_route . '.home')->with('error', 'You are not Authorized for this action!');
     }
 }
