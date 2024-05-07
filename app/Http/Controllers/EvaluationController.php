@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Models\UserApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -74,7 +75,20 @@ class EvaluationController extends Controller
     {
 
         if ($this->checkAuthorizations(self::MODEL_EVALUATION, Auth::user()->type, $evaluation, self::ACTION_VIEW)) {
-            return view('pages.' . $this->current_route . '.evaluation.view', ['evaluation' => $evaluation]);
+
+            $applications = UserApplication::whereIn('user_id', function ($query) {
+                $query->select('id')
+                    ->from('users')
+                    ->where('department_id', Auth::user()->department->id);
+            })
+            ->where('status', 1)
+            ->where('internship_id', function($query){
+                $query->select('id')
+                ->from('internships')
+                ->whereDate('start_date', '<', now());
+            })
+                ->get();
+            return view('pages.' . $this->current_route . '.evaluation.view', ['evaluation' => $evaluation, 'applications'=>$applications]);
         } else {
             return redirect()->back()->with('error', 'You are not Authorized for this action!');
         }

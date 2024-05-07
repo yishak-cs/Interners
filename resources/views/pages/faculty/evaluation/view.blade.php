@@ -30,7 +30,7 @@
             <div class="row">
 
                 <div class="col-md-12">
-    
+
                     <div class="card card-default">
                         <div class="card-header ui-sortable-handle" style="cursor: move;">
                             <h3 class="card-title">{{ __('Evaluation Detail') }}</h3>
@@ -63,7 +63,7 @@
                                         <dd class="col-sm-9">{{ $evaluation->id }}</dd>
                                         <dt class="col-sm-3">{{ __('Evaluation Title') }}:</dt>
                                         <dd class="col-sm-9">{{ $evaluation->upper_title }}</dd>
-                            
+
                                         <dt class="col-sm-3">{{ __('Evaluation Status') }}:</dt>
                                         <dd
                                             class="col-sm-9 {{ $evaluation->status == '1' ? 'text-success' : 'text-danger' }}">
@@ -106,13 +106,66 @@
                                     <div id="renderForm" class="col-8"></div>
                                     <div class="col-2"></div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-default collapsed-card">
+                        <div class="card-header ui-sortable-handle" style="cursor: move;">
+                            <h3 class="card-title">{{ __('Eligible Students') }}</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                        class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="card-tools">
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <i class="icon fas fa-ban"></i>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <i class="icon fas fa-check"></i>
+                                    {!! session('success') !!}
+                                </div>
+                            @endif
+                            <table id="dataTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($applications as $application )
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $application->user->getName() }}</td>
+                                    <td>{{ $application->user->fdepartment->name }}</td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <a href="{{ route('faculty.evaluation.send', $evaluation)  }}">
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="   ">{{ __('Send Evaluation') }}</button>
+                                </div>
+                            </a>
+
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-        <!-- /.container-fluid -->
+                <!-- /.container-fluid -->
     </section>
     <!-- Modal -->
     <div class="modal fade" id="modal-update-status">
