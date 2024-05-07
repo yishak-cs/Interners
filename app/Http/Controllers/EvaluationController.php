@@ -8,6 +8,7 @@ use App\Models\UserApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationController extends Controller
 {
@@ -81,14 +82,14 @@ class EvaluationController extends Controller
                     ->from('users')
                     ->where('department_id', Auth::user()->department->id);
             })
-            ->where('status', 1)
-            ->where('internship_id', function($query){
-                $query->select('id')
-                ->from('internships')
-                ->whereDate('start_date', '<', now());
-            })
+                ->where('status', 1)
+                ->where('internship_id', function ($query) {
+                    $query->select('id')
+                        ->from('internships')
+                        ->whereDate('start_date', '<', now());
+                })
                 ->get();
-            return view('pages.' . $this->current_route . '.evaluation.view', ['evaluation' => $evaluation, 'applications'=>$applications]);
+            return view('pages.' . $this->current_route . '.evaluation.view', ['evaluation' => $evaluation, 'applications' => $applications]);
         } else {
             return redirect()->back()->with('error', 'You are not Authorized for this action!');
         }
@@ -137,5 +138,40 @@ class EvaluationController extends Controller
             return redirect()->back()->with('error', 'Something went wrong, please try again!');
         }
         return redirect()->route($this->current_route . '.home')->with('error', 'You are not Authorized for this action!');
+    }
+
+
+    public function sendEvaluation(Evaluation $evaluation)
+    {
+        try {
+            DB::beginTransaction();
+
+            $applications = UserApplication::whereIn('user_id', function ($query) {
+                $query->select('id')
+                    ->from('users')
+                    ->where('department_id', Auth::user()->department->id);
+            })
+                ->where('status', 1)
+                ->where('internship_id', function ($query) {
+                    $query->select('id')
+                        ->from('internships')
+                        ->whereDate('start_date', '<', now());
+                })
+                ->get();
+
+            foreach ($applications as $application) {
+                if (!$application->evaluations->contains($evaluation)) {
+                    $application->evaluations()->attach($evaluation);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Evaluation sent successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Failed to send evaluation: ' . $e->getMessage());
+        }
     }
 }

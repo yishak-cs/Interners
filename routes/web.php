@@ -142,6 +142,12 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
             Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('department.reports.application');
             Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('department.reports.internship');
         });
+
+        // intern evaluation trial
+        Route::prefix('/evaluation')->group(function () {
+            Route::get('/', [EvaluationController::class, 'lister'])->name('department.evaluation.list');
+            Route::post('/add', [AtsReportController::class, 'evalStore'])->name('department.evluation.store');
+        });
     });
 });
 /** Department Route End */
@@ -199,7 +205,7 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::post('/update/status/{evaluation}', [EvaluationController::class, 'updateStatus'])->name('faculty.evaluation.update.status');
 
             // under construction
-            Route::get('/send/{evaluation}', [EvaluationController::class, 'send'])->name('faculty.evaluation.send');
+            Route::get('/send/{evaluation}', [EvaluationController::class, 'sendEvaluation'])->name('faculty.evaluation.send');
         });
     });
 });

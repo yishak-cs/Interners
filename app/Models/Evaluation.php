@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Evaluation extends Model
 {
@@ -55,6 +56,16 @@ class Evaluation extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+    
+    /**
+     * Get the applications that are related to this Evaluation
+     *
+     * @return BelongsToMany
+     */
+    public function applications(): BelongsToMany
+    {
+        return $this->belongsToMany(UserApplication::class, 'evaluation_user_application', 'evaluation_id','application_id');
     }
     
     /**
