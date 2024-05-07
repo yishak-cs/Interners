@@ -197,6 +197,9 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
             Route::get('/view/{evaluation}', [EvaluationController::class, 'show'])->name('faculty.evaluation.view');
             Route::get('/delete/{evaluation}', [EvaluationController::class, 'destroy'])->name('faculty.evaluation.delete');
             Route::post('/update/status/{evaluation}', [EvaluationController::class, 'updateStatus'])->name('faculty.evaluation.update.status');
+
+            // under construction
+            Route::get('/send/{evaluation}', [EvaluationController::class, 'send'])->name('faculty.evaluation.send');
         });
     });
 });

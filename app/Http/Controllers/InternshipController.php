@@ -355,9 +355,8 @@ class InternshipController extends Controller
             if (!$internship->isEnded() && $internship->isStarted() && $internship->status != '2') {
                 if (count($internship->getInterns()) > 0) {
                     if ($internship->update(['status' => '2'])) {
-                        $is_messaged = sendInternshipStartedMessage($internship);
                         $is_mailed = sendInternshipStartedMail($internship);
-                        return redirect()->route($this->current_route . '.internship.list', ['is_messaged' => $is_messaged, 'is_mailed' => $is_mailed])->with('success', "internship has been Started successfully!");
+                        return redirect()->route($this->current_route . '.internship.list', ['is_mailed' => $is_mailed])->with('success', "internship has been Started successfully!");
                     } else {
                         return redirect()->route($this->current_route . '.internship.list')->with('error', 'Something went wrong, please try again!');
                     }
