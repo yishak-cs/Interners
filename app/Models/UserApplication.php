@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,6 +21,7 @@ class UserApplication extends Model
     protected $fillable = [
         'user_id',
         'internship_id',
+        'evaluation_id',
         'status',
     ];
 
@@ -52,7 +54,7 @@ class UserApplication extends Model
         return $this->belongsTo(User::class, 'user_id', 'id')->withTrashed();
     }
 
-     /**
+    /**
      * Get the internship that owns the UserApplication
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -60,6 +62,16 @@ class UserApplication extends Model
     public function internship(): BelongsTo
     {
         return $this->belongsTo(Internship::class, 'internship_id', 'id')->withTrashed();
+    }
+
+    /**
+     * Get the evaluations that are related to this application
+     *
+     * @return BelongsToMany
+     */
+    public function evaluations(): BelongsToMany
+    {
+        return $this->belongsToMany(Evaluation::class, 'evaluation_user_application', 'application_id', 'evaluation_id');
     }
 
     /**
