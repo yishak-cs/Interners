@@ -123,22 +123,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-
-                            @if (session('error'))
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    <i class="icon fas fa-ban"></i>
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-                            @if (session('success'))
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">×</button>
-                                    <i class="icon fas fa-check"></i>
-                                    {!! session('success') !!}
-                                </div>
-                            @endif
                             <table id="dataTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
