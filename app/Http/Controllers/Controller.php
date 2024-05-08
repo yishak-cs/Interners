@@ -25,7 +25,7 @@ class Controller extends BaseController
     public const MODEL_STUDENTS = 'students';
     public const MODEL_STAFF = 'staff';
     public const MODEL_EVALUATION = 'evaluation';
-
+    public const INTERN_EVALUATION = "INTERN_EVALUATION";
     public const ACTION_VIEW = 'view';
     public const ACTION_EDIT = 'edit';
     public const ACTION_UPDATE = 'update';
