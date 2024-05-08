@@ -174,4 +174,21 @@ class EvaluationController extends Controller
             return redirect()->back()->with('error', 'Failed to send evaluation: ' . $e->getMessage());
         }
     }
+
+    public function evaluation()
+    {
+        // Retrieve the user applications associated with the company
+        $userApplications = UserApplication::with('evaluations')
+            ->where('status', 1)
+            ->whereIn('internship_id', function ($query) {
+                $query->select('id')
+                    ->from('internships')
+                    ->where('department_id', Auth::user()->department->id)
+                    ->whereDate('start_date', '<', now());
+            })
+            ->whereHas('evaluations') // Add this line to filter out UserApplications without evaluations
+            ->get();
+
+        return view('pages.' . $this->current_route . '.intern_evaluation.list', ['userApplications' => $userApplications]);
+    }
 }

@@ -93,7 +93,7 @@ class Internship extends Model
     }
 
     /**
-     * check if the deadline is passe
+     * check if the deadline is passed
      *
      * @return bool
      */

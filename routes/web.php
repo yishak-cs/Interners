@@ -8,6 +8,7 @@ use App\Http\Controllers\InternController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\AtsReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
@@ -145,7 +146,8 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
 
         // intern evaluation trial
         Route::prefix('/evaluation')->group(function () {
-            Route::get('/', [EvaluationController::class, 'lister'])->name('department.evaluation.list');
+            Route::get('/', [EvaluationController::class, 'evaluation'])->name('department.evaluation');
+            Route::get('/{userApplication}', [ResponseController::class, 'showForm'])->name('department.form.show');
             Route::post('/add', [AtsReportController::class, 'evalStore'])->name('department.evluation.store');
         });
     });
