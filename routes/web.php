@@ -147,8 +147,8 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
         // intern evaluation trial
         Route::prefix('/evaluation')->group(function () {
             Route::get('/', [EvaluationController::class, 'evaluation'])->name('department.evaluation');
-            Route::get('/{userApplication}', [ResponseController::class, 'showForm'])->name('department.form.show');
-            Route::post('/add', [AtsReportController::class, 'evalStore'])->name('department.evluation.store');
+            Route::post('/', [ResponseController::class, 'showForm'])->name('department.form.show');
+            Route::post('/add', [AtsReportController::class, 'evalStore'])->name('response.store');
         });
     });
 });

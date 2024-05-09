@@ -132,14 +132,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($applications as $application )
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $application->user->getName() }}</td>
-                                    <td>{{ $application->user->fdepartment->name }}</td>
+                                    <tr>
+                                        @foreach ($applications as $application)
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $application->user->getName() }}</td>
+                                            <td>{{ $application->user->fdepartment->name }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <a href="{{ route('faculty.evaluation.send', $evaluation)  }}">
+                            <a href="{{ route('faculty.evaluation.send', $evaluation) }}">
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                         data-target="   ">{{ __('Send Evaluation') }}</button>
