@@ -27,9 +27,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-
                 <div class="col-md-12">
-
                     <div class="card card-default">
                         <div class="card-header">
                             <h3 class="card-title">Intern Evaluation List</h3>
@@ -49,72 +47,49 @@
                                     {!! session('success') !!}
                                 </div>
                             @endif
-                            <table id="dataTable" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Full Name</th>
-                                        <th>Internship</th>
-                                        <th>Evaluation Forms</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($userApplications as $userApplication)
+                            <form action="{{ route('department.form.show') }}" method="POST">
+                                @csrf
+                                <table id="dataTable" class="table table-bordered table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($userApplication->user->getName()) }}</td>
-                                            <td><a
-                                                    href="{{ route('department.internship.view', $userApplication->internship->id) }}">{{ $userApplication->internship->title }}</a>
-                                            </td>
-                                            <td>
-                                                <select name="evaluation_form" id="evaluation-dropdown"
-                                                    class="form-control select2" autofocus required>
-                                                    @foreach ($userApplication->evaluations as $evaluation)
-                                                        <option value="{{ $evaluation->id }}">{{ $evaluation->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-
-                                            <td>
-                                                {{--  --}}
-                                                <a href="{{ route('department.form.show', [
-                                                    'type' => base64_encode(\App\Http\Controllers\Controller::INTERN_EVALUATION),
-                                                    'userApplication' => $userApplication,
-                                                    'evaluation_form' => '',
-                                                ]) }}"
-                                                    id="evaluation-form-link" target="_blank">
-                                                    <button class="btn btn-success btn-xs btn-flat">
+                                            <th>#</th>
+                                            <th>Full Name</th>
+                                            <th>Internship</th>
+                                            <th>Evaluation Forms</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($userApplications as $userApplication)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ ucwords($userApplication->user->getName()) }}</td>
+                                                <td><a href="{{ route('department.internship.view', $userApplication->internship->id) }}">{{ $userApplication->internship->title }}</a></td>
+                                                <td>
+                                                    <select name="evaluation_form" class="form-control select2" autofocus required>
+                                                        @foreach ($userApplication->evaluations as $evaluation)
+                                                            <option value="{{ $evaluation->id }}">{{ $evaluation->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="integer"  hidden name="userApplication" value="{{ $userApplication->id }}">
+                                                  
+                                                    <button type="submit" class="btn btn-success btn-xs btn-flat">
                                                         <i class="fas fa-share"></i>
                                                         {{ __('Evaluate') }}
                                                     </button>
-                                                </a>
-                                                {{--  --}}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
-        <!-- /.container-fluid -->
     </section>
 @endsection
-@push('scripts')
-    <script>
-        document.getElementById('evaluation-dropdown').addEventListener('change', function() {
-            var selectedEvaluationId = this.value; 
 
-            var originalLink = document.getElementById('evaluation-form-link').getAttribute('href');
-            var newLink = originalLink.replace(/evaluation_form=[^&]*/, 'evaluation_form=' + selectedEvaluationId);
-
-            document.getElementById('evaluation-form-link').setAttribute('href', newLink);
-        });
-    </script>
-@endpush
