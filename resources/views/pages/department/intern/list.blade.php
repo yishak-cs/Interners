@@ -37,16 +37,14 @@
                         <div class="card-body">
                             @if (session('error'))
                                 <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">×</button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <i class="icon fas fa-ban"></i>
                                     {{ session('error') }}
                                 </div>
                             @endif
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">×</button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <i class="icon fas fa-check"></i>
                                     {!! session('success') !!}
                                 </div>
@@ -66,14 +64,14 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($intern->user->getName()) }}</td>
-                                            <td><a href="{{ route('department.internship.view', $intern->internship->id) }}">{{ $intern->internship->title }}</a></td>
-                                            <td
-                                                @class([
-                                                    'text-warnign' => $intern->internship->isStarted(),
-                                                    'text-danger' => $intern->internship->isEnded(),
-                                                    'text-success' => !$intern->internship->isDeadlinePassed()
-                                                ])
-                                            >
+                                            <td><a
+                                                    href="{{ route('department.internship.view', $intern->internship->id) }}">{{ $intern->internship->title }}</a>
+                                            </td>
+                                            <td @class([
+                                                'text-warnign' => $intern->internship->isStarted(),
+                                                'text-danger' => $intern->internship->isEnded(),
+                                                'text-success' => !$intern->internship->isDeadlinePassed(),
+                                            ])>
                                                 {{ \Carbon\Carbon::parse($intern->internship->start_date)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}
                                             </td>
                                             <td>
@@ -83,7 +81,9 @@
                                                         View
                                                     </button>
                                                 </a>
-                                                <a href="{{ route('department.intern.delete', $intern->id) }}" onclick="if(confirm('Are you sure, you want to delete {{ $intern->user->getName() }}? This action will also deletes user\'s application!') == false){event.preventDefault()}">
+
+                                                <a href="{{ route('department.intern.delete', $intern->id) }}"
+                                                    onclick="if(confirm('Are you sure, you want to delete {{ $intern->user->getName() }}? This action will also deletes user\'s application!') == false){event.preventDefault()}">
                                                     <button class="btn btn-danger btn-xs btn-flat">
                                                         <i class="fas fa-trash"></i>
                                                         Delete

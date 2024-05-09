@@ -104,17 +104,17 @@
                         </p>
                     </a>
                 </li>
-                {{-- Evaluate intern trial --}}
+                {{--  --}}
                 <li class="nav-item">
-                    <a href="{{ route('department.evaluation.list') }}"
+                    <a href="{{ route('department.evaluation') }}"
                         class="nav-link {{ request()->is('department/evaluation/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>
-                            Interns
+                            Interns Evaluations
                         </p>
                     </a>
                 </li>
-                {{-- end evaluate intern trial --}}
+                {{--  --}}
                 <li class="nav-item {{ request()->is('department/reports*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('department/reports*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-file-pdf"></i>
