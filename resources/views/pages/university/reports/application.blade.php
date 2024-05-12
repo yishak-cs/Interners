@@ -110,7 +110,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Applicant Name</th>
+                                        <th>Student Name</th>
+                                        <th>Faculty</th>
                                         <th>Internship</th>
                                         <th>Applied Date</th>
                                         <th>Start Date</th>
@@ -123,6 +124,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($application->user->getName()) }}</td>
+                                            <td>{{ $application->user->userDepartment->name }}</td>
                                             <td>{{ ucwords($application->internship->title) }}</td>
                                             <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}
                                             </td>
