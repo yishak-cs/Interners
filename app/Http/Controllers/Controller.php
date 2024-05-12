@@ -330,7 +330,7 @@ class Controller extends BaseController
             if (!($data instanceof UserApplication)) return false;
 
             // check if the user owns the interns
-            if ($data->department->id === auth()->user()->department->id) {
+            if ($data->internship->department->id === auth()->user()->department->id) {
                 // check the action
                 if ($action === self::ACTION_VIEW || $action === self::ACTION_DELETE) {
                     return true;

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('evaluation_id')->constrained('evaluations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('company_id')->constrained('companies');
             $table->json('body');
             $table->json('body_preview');
             $table->timestamps();

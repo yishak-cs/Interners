@@ -83,7 +83,7 @@ class EvaluationController extends Controller
                     ->where('department_id', Auth::user()->department->id);
             })
                 ->where('status', 1)
-                ->where('internship_id', function ($query) {
+                ->whereIn('internship_id', function ($query) {
                     $query->select('id')
                         ->from('internships')
                         ->whereDate('start_date', '<', now());
@@ -152,7 +152,7 @@ class EvaluationController extends Controller
                     ->where('department_id', Auth::user()->department->id);
             })
                 ->where('status', 1)
-                ->where('internship_id', function ($query) {
+                ->whereIn('internship_id', function ($query) {
                     $query->select('id')
                         ->from('internships')
                         ->whereDate('start_date', '<', now());
@@ -186,7 +186,7 @@ class EvaluationController extends Controller
                     ->where('department_id', Auth::user()->department->id)
                     ->whereDate('start_date', '<', now());
             })
-            ->whereHas('evaluations') // Add this line to filter out UserApplications without evaluations
+            ->whereHas('evaluations') 
             ->get();
 
         return view('pages.' . $this->current_route . '.intern_evaluation.list', ['userApplications' => $userApplications]);

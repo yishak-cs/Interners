@@ -71,6 +71,16 @@ class Company extends Model
     }
 
     /**
+     * Get all of the evaluation of this Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function response(): HasMany
+    {
+        return $this->hasMany(EvaluationResponse::class, 'company_id');
+    }
+
+    /**
      * Get Company Admin name
      *
      * @return string

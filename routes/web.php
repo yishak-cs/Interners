@@ -148,7 +148,7 @@ Route::middleware(['auth', 'verified', 'user-access:department'])->group(functio
         Route::prefix('/evaluation')->group(function () {
             Route::get('/', [EvaluationController::class, 'evaluation'])->name('department.evaluation');
             Route::post('/', [ResponseController::class, 'showForm'])->name('department.form.show');
-            Route::post('/add', [AtsReportController::class, 'evalStore'])->name('response.store');
+            Route::post('/send', [ResponseController::class, 'store'])->name('response.store');
         });
     });
 });
@@ -192,8 +192,7 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
 
         // faculty/reports route
         Route::prefix('/reports')->group(function () {
-            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('faculty.reports.application');
-            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('faculty.reports.internship');
+            Route::get('/application', [AtsReportController::class, 'application'])->name('faculty.reports.application');
         });
         // faculty/evaluation route
         Route::prefix('/evaluations')->group(function () {
@@ -208,6 +207,12 @@ Route::middleware(['auth', 'verified', 'user-access:faculty'])->group(function (
 
             // under construction
             Route::get('/send/{evaluation}', [EvaluationController::class, 'sendEvaluation'])->name('faculty.evaluation.send');
+        });
+
+        Route::prefix('/response')->group(function () {
+            Route::get('/response/list', [ResponseController::class, 'index'])->name('faculty.response.list');
+            Route::get('/view/{response}', [ResponseController::class, 'show'])->name('faculty.response.view');
+            Route::get('/delete/{response}', [ResponseController::class, 'destroy'])->name('faculty.response.delete');
         });
     });
 });
@@ -243,8 +248,7 @@ Route::middleware(['auth', 'verified', 'user-access:university'])->group(functio
 
         // university/reports route
         Route::prefix('/reports')->group(function () {
-            Route::get('/application', [AtsReportController::class, 'applicationListing'])->name('university.reports.application');
-            Route::get('/internship', [AtsReportController::class, 'internshipListing'])->name('university.reports.internship');
+            Route::get('/application', [AtsReportController::class, 'application'])->name('university.reports.application');
         });
         // university/staff routes
         Route::prefix('/staff')->group(function () {

@@ -47,44 +47,51 @@
                                     {!! session('success') !!}
                                 </div>
                             @endif
-                            <form action="{{ route('department.form.show') }}" method="POST">
-                                @csrf
-                                <table id="dataTable" class="table table-bordered table-striped">
-                                    <thead>
+
+                            <table id="dataTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Internship</th>
+                                        <th>Evaluation Forms</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($userApplications as $userApplication)
                                         <tr>
-                                            <th>#</th>
-                                            <th>Full Name</th>
-                                            <th>Internship</th>
-                                            <th>Evaluation Forms</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($userApplications as $userApplication)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ ucwords($userApplication->user->getName()) }}</td>
-                                                <td><a href="{{ route('department.internship.view', $userApplication->internship->id) }}">{{ $userApplication->internship->title }}</a></td>
-                                                <td>
-                                                    <select name="evaluation_form" class="form-control select2" autofocus required>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ucwords($userApplication->user->getName()) }}</td>
+                                            <td><a
+                                                    href="{{ route('department.internship.view', $userApplication->internship->id) }}">{{ $userApplication->internship->title }}</a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('department.form.show') }}" method="POST">
+                                                    @csrf
+                                                    <select name="evaluation_form" class="form-control select2" autofocus
+                                                        required>
                                                         @foreach ($userApplication->evaluations as $evaluation)
-                                                            <option value="{{ $evaluation->id }}">{{ $evaluation->title }}</option>
+                                                            <option value="{{ $evaluation->id }}">{{ $evaluation->title }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
-                                                </td>
-                                                <td>
-                                                    <input type="integer"  hidden name="userApplication" value="{{ $userApplication->id }}">
-                                                  
-                                                    <button type="submit" class="btn btn-success btn-xs btn-flat">
-                                                        <i class="fas fa-share"></i>
-                                                        {{ __('Evaluate') }}
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </form>
+                                            </td>
+                                            <td>
+                                                <input type="integer" hidden name="userApplication"
+                                                    value="{{ $userApplication->id }}">
+
+                                                <button type="submit" class="btn btn-success btn-xs btn-flat">
+                                                    <i class="fas fa-share"></i>
+                                                    {{ __('Evaluate') }}
+                                                </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
@@ -92,4 +99,3 @@
         </div>
     </section>
 @endsection
-

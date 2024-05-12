@@ -91,36 +91,13 @@
                     </ul>
                 </li>
                 
-                <li class="nav-item">
-                    <a href="#" class="nav-link {{ (request()->is('university/intern/*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Interns
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-item {{ (request()->is('university/reports*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (request()->is('university/reports*')) ? 'active' : '' }}">
+                    <a href="{{ route('university.reports.application') }}" class="nav-link {{ (request()->is('university/reports*')) ? 'active' : '' }}">
                         <i class="nav-icon far fa-file-pdf"></i>
                         <p>
                             Reports
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('university.reports.application') }}" class="nav-link {{ (request()->is('university/reports/application')) ? 'active' : '' }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
-                                <p>Applications</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('university.reports.internship') }}" class="nav-link {{ (request()->is('university/reports/internship')) ? 'active' : '' }}">
-                                <i class="fas fa-briefcase nav-icon"></i>
-                                <p>Internship</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('university.profile') }}" class="nav-link {{ (request()->is('university/profile')) ? 'active' : '' }}">
