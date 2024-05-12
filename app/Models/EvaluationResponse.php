@@ -20,7 +20,8 @@ class EvaluationResponse extends Model
         'evaluation_id',
         'user_id',
         'body',
-        'body_preview'
+        'body_preview',
+        'company_id'
     ];
 
     /**
@@ -51,6 +52,16 @@ class EvaluationResponse extends Model
     public function evaluation(): BelongsTo
     {
         return $this->belongsTo(Evaluation::class, 'evaluation_id');
+    }
+
+    /**
+     * Get the company that owns this Response
+     *
+     * @return BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     /**

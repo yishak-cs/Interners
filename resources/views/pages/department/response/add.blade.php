@@ -55,12 +55,13 @@
                 @csrf
                 <input type="hidden" name="intern_id" value="{{ $userApplication->user->id }}">
                 <input type="hidden" name="evaluation_id" value="{{ $evaluation->id }}">
-
+                <input type="hidden" name="company_id" value="{{ auth()->user()->department->company->id }}">
                 <div class="card-body">
                     <div class="row">
                         <div class="row">
                             <div class="col-2"></div>
                             <div id="renderForm" class="col-8"></div>
+                            <input type="text" name="body_preview" id="bodyPreview" hidden>
                             <div class="col-2"></div>
                         </div>
                     </div>
@@ -92,5 +93,11 @@
             dataType: 'json'
         })
     }
+
+    $("#btnSubmit").on('click', function (e) {
+            var x = JSON.stringify($("#renderForm").formRender('userData'));
+            $("#bodyPreview").val(x);
+            // $(':radio:not(:checked)').attr('disabled', true);
+        });
 </script>
 @endpush

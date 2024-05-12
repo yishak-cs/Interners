@@ -107,30 +107,25 @@
                     </ul>
                 </li>
                 {{-- end evaluation --}}
+
+                {{-- evaluation response --}}
+
+                <li class="nav-item">
+                    <a href="{{ route('faculty.response.list') }}" class="nav-link {{ !(request()->routeIs('faculty.response*')) ?: 'active' }}">
+                        <i class="nav-icon fas fa-reply"></i>
+                        <p>{{ __("Responses") }}</p>
+                    </a>
+                </li>
+
+                {{-- end --}}
                 <li class="nav-item {{ request()->is('faculty/reports*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('faculty/reports*') ? 'active' : '' }}">
+                    <a href="{{ route('faculty.reports.application') }}" class="nav-link {{ request()->is('faculty/reports*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-file-pdf"></i>
                         <p>
                             Reports
-                            <i class="right fas fa-angle-left"></i>
+                        
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.reports.application') }}"
-                                class="nav-link {{ request()->is('faculty/reports/application') ? 'active' : '' }}">
-                                <i class="fas fa-file-alt nav-icon"></i>
-                                <p>Applications</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('faculty.reports.internship') }}"
-                                class="nav-link {{ request()->is('faculty/reports/internship') ? 'active' : '' }}">
-                                <i class="fas fa-briefcase nav-icon"></i>
-                                <p>Internship</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('faculty.profile') }}"

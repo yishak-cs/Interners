@@ -29,7 +29,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>Application Latter</label>
+                <label>Application Letter</label>
                 <input type="file" class="form-control" id="application_letter_file_path" name="application_letter_file_path"
                     placeholder="Application Letter">
                 @error('application_letter_file_path')
@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group">
-                <label>Application Acceptance Form</label>
+                <label>Application Acceptance letter</label>
                 <input type="file" class="form-control" id="application_acceptance_file_path" name="application_acceptance_file_path"
                     placeholder="Application Letter">
                 @error('application_acceptance_file_path')

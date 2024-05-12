@@ -50,72 +50,7 @@
                         <div class="card-body">
                             <form action="{{ route('university.reports.application') }}" method="get">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <select name="status" class="form-control select2bs4">
-                                                <option value="">-- select --</option>
-                                                <option value="0">Pending</option>
-                                                <option value="1">Accepted</option>
-                                                <option value="2">Rejected</option>
-                                            </select>
-                                            @error('status')
-                                                <span class="text-danger" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Start Date:</label>
-                                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input"
-                                                    data-target="#reservationdate" name="start_date" required/>
-                                                <div class="input-group-append" data-target="#reservationdate"
-                                                    data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                            @error('start_date')
-                                                <span class="text-danger" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Internship</label>
-                                            <select name="internship" class="form-control select2bs4">
-                                                <option value="">-- select --</option>
-                                                @foreach ($internships as $internship)
-                                                    <option value="{{ $internship->id }}">{{ $internship->title }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('internship')
-                                                <span class="text-danger" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>End Date:</label>
-                                            <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input"
-                                                    data-target="#reservationdate2" name="end_date" />
-                                                <div class="input-group-append" data-target="#reservationdate2"
-                                                    data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                            @error('end_date')
-                                                <span class="text-danger" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
+            
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Date</label>
@@ -177,7 +112,6 @@
                                         <th>#</th>
                                         <th>Applicant Name</th>
                                         <th>Internship</th>
-                                        <th>Internship Status</th>
                                         <th>Applied Date</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
@@ -190,19 +124,6 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ ucwords($application->user->getName()) }}</td>
                                             <td>{{ ucwords($application->internship->title) }}</td>
-                                            <td>
-                                                @if ($application->internship->status == 0)
-                                                    <span class="text-danger">Ended</span>
-                                                @elseif ($application->internship->status == 1)
-                                                    <span class="text-success">Accepting Applicants</span>
-                                                @elseif ($application->internship->status == 2)
-                                                    <span class="text-warning">Ongoing</span>
-                                                @elseif ($application->internship->status == 3)
-                                                    <span class="text-info">Waiting</span>
-                                                @elseif ($application->internship->status == 4)
-                                                    <span class="text-danger">Aborted</span>
-                                                @endif
-                                            </td>
                                             <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($application->internship->start_date)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}
