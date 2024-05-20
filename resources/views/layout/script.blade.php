@@ -238,18 +238,7 @@
         @endif
 
         @if (request()->is('admin/profile*'))
-        @if ($is_node_on->value == '1')
-            $.get('{{ env('APP_URL') }}/api/node/get', function(data) {
-                $('#tbodyNode').html(`
-                <tr>
-                    <td>1</td>
-                    <td>${data.name}</td>
-                    <td>${data.mode}</td>
-                    <td>${data.status}</td>
-                    <td>${data.date}</td>
-                </tr>`);
-            })
-        @endif
+
         @endif
     });
     @if (request()->is('department/internship/add'))

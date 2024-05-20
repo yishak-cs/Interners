@@ -20,6 +20,7 @@ class Internship extends Model
     protected $fillable = [
         'department_id',
         'title',
+        'location',
         'description',
         'minimum_cgpa',
         'quota', 'deadline',

@@ -129,44 +129,6 @@
                         </div>
                     </div>
                     <!-- /.card -->
-
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">Pending Applications</h3>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-striped table-valign-middle">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Applicant</th>
-                                        <th>Internship</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (count($applications) > 0)
-                                    @foreach ($applications as $application)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($application->user->getName()) }}</td>
-                                            
-                                            <td>{{ \Carbon\Carbon::parse($application->created_at)->setTimezone('Africa/Addis_Ababa')->format('M d, Y') }}</td>
-                                            <td>
-                                 
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @else
-                                    <tr>
-                                        <td colspan="5" class="text-center">No Pending Applications</td>
-                                    </tr>
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>

@@ -118,6 +118,7 @@ class InternshipController extends Controller
         $internships = Internship::where('status', '1')
             ->whereDate('deadline', '>=', date('Y-m-d H:i:s'))
             ->where('title', 'LIKE', '%' . $query . '%')
+            ->orWhere('location', 'LIKE', '%'.strtolower($query) . '%')
             ->orWhere('description', 'LIKE', '%' . $query . '%')
             ->get();
 
@@ -151,6 +152,7 @@ class InternshipController extends Controller
         $request->validate([
             'department_id' => 'exists:\App\Models\Department,id|required|integer',
             'title' => 'string|required',
+            'location'=>'string|required',
             'description' => 'nullable|string',
             'minimum_cgpa' => 'nullable|numeric|min:0.0|max:4.0',
             'quota' => 'nullable|integer',
@@ -163,6 +165,7 @@ class InternshipController extends Controller
         $internship = new Internship([
             'department_id' => $request->department_id,
             'title' => $request->title,
+            'location'=> strtolower($request->location),
             'description' => $request->description,
             'minimum_cgpa' => $request->minimum_cgpa,
             'quota' => ($request->quota) ? $request->quota : 0,
@@ -236,6 +239,7 @@ class InternshipController extends Controller
             $request->validate([
                 'department_id' => 'exists:\App\Models\Department,id|integer',
                 'title' => 'string',
+                'location'=>'string',
                 'description' => 'nullable|string',
                 'minimum_cgpa' => 'nullable|numeric|min:0.0|max:4.0',
                 'quota' => 'nullable|integer',
@@ -252,6 +256,7 @@ class InternshipController extends Controller
             $flag = $internship->update([
                 'department_id' => ($request->department_id) ? $request->department_id : $internship->department_id,
                 'title' => ($request->title) ? $request->title : $internship->title,
+                'location' => $request->location ?? $internship->location,
                 'description' => ($request->description) ? $request->description : $internship->description,
                 'minimum_cgpa' => ($request->minimum_cgpa) ? $request->minimum_cgpa : $internship->minimum_cgpa,
                 'quota' => ($request->quota) ? $request->quota : $internship->quota,

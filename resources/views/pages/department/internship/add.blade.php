@@ -90,6 +90,15 @@
                                                         </span>
                                                     @enderror
                                                     <div class="form-group">
+                                                        <label>Location</label> <i class="text-danger font-weight-bold">*</i>
+                                                        <input type="text" name="location" class="form-control" placeholder="Enter Location" required>
+                                                    </div>
+                                                    @error('location')
+                                                        <span class="text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                    <div class="form-group">
                                                         <label>Minimum CGPA</label>
                                                         <input type="text" name="minimum_cgpa" class="form-control" placeholder="Enter CGPA">
                                                     </div>

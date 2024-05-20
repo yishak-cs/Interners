@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\University;
-use App\Models\Configs;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\UserInformation;
@@ -46,8 +45,7 @@ class UserController extends Controller
     public function profile(): View
     {
         if ($this->current_route == 'admin') {
-            $is_node_on = Configs::where('name', 'is_node_on')->first();
-            return view('pages.' . $this->current_route . '.profile.base')->with(['detail_page' => true, 'is_node_on' => $is_node_on]);
+            return view('pages.' . $this->current_route . '.profile.base')->with(['detail_page' => true]);
         }
         if ($this->current_route == 'user') {
 
