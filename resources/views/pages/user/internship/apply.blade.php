@@ -77,7 +77,7 @@
                 <div class="col-md-12">
                     <div class="card card-default collapsed-card">
                         <div class="card-header">
-                            <h3 class="card-title">{{ $internship->department->name }}</h3>
+                            <h3 class="card-title">{{ $internship->department->company->name.' -> '.$internship->department->name }}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                         class="fas fa-plus"></i>
@@ -92,7 +92,9 @@
                             <p><b>Detail:</b></p>
 
                             <dl class="row">
-                                <dt class="col-sm-3">Minimum CGPA required: </dt>
+                                <dt class="col-sm-3">Location </dt>
+                                <dd class="col-sm-7">{{ $internship->location }}</dd>
+                                <dt class="col-sm-3">Minimum CGPA required </dt>
                                 <dd class="col-sm-7">{{ $internship->minimum_cgpa }}</dd>
                                 <dt class="col-sm-3">Available Quota</dt>
                                 <dd class="col-sm-7">{{ $internship->quota }}</dd>
@@ -190,14 +192,14 @@
                                             <dt class="col-sm-4">Comulative CGPA: </dt>
                                             <dd class="col-sm-8">{{ (Auth::user()->information->cgpa)?Auth::user()->information->cgpa:'-' }}</dd>
                                             <dt class="col-sm-4">University: </dt>
-                                            <dd class="col-sm-8">{{ (Auth::user()->information->university)?Auth::user()->information->university:'-' }}</dd>
+                                            <dd class="col-sm-8">{{ (Auth::user()->userUniversity)?Auth::user()->userUniversity->name:'-' }}</dd>
                                         </dl>
                                     </div>
                                     <div class="col-md-5">
                                         <p><b>This Files will be sent:</b></p>
                                         <ul>
                                             @if(Auth::user()->information->application_letter_file_path)<li><a target="_blank" href="{{ asset('/uploads/application_acceptance/'.Auth::user()->information->application_letter_file_path) }}"> Application Letter</a></li> @endif
-                                            @if(Auth::user()->information->application_acceptance_file_path)<li><a target="_blank" href="{{ asset('/uploads/application_acceptance/'.Auth::user()->information->application_acceptance_file_path) }}"> Application Acceptance Form </a> </li> @endif
+                                            @if(Auth::user()->information->application_acceptance_file_path)<li><a target="_blank" href="{{ asset('/uploads/application_acceptance/'.Auth::user()->information->application_acceptance_file_path) }}"> Grade report </a> </li> @endif
                                             @if(Auth::user()->information->student_id_file_path)<li><a target="_blank" href="{{ asset('/uploads/application_acceptance/'.Auth::user()->information->student_id_file_path) }}">Student ID</a></li> @endif
                                         </ul>
                                     </div>

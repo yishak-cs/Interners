@@ -69,6 +69,8 @@
                                 <p><b>Detail:</b></p>
 
                                 <dl class="row">
+                                    <dt class="col-sm-4">Location: </dt>
+                                    <dd class="col-sm-6">{{ $internship->location }}</dd>
                                     <dt class="col-sm-4">Minimum CGPA required: </dt>
                                     <dd class="col-sm-6">{{ $internship->minimum_cgpa }}</dd>
                                     <dt class="col-sm-4">Available Quota</dt>
@@ -163,10 +165,6 @@
                                         </div>
                                         <div class="col-md-6">
                                             <dl class="row">
-                                                <dt class="col-sm-4">University: </dt>
-                                                    <dd class="col-sm-8">
-                                                        {{ $user->userUniversity->name ?? '-'}}
-                                                    </dd>
                                                 @if ($user->userUniversity)
                                                     <dt class="col-sm-4">University: </dt>
                                                     <dd class="col-sm-8">
@@ -180,7 +178,7 @@
                                                     </dd>
                                                 @endif
                                                 @if ($user->fdepartment)
-                                                    <dt class="col-sm-4">Faculty: </dt>
+                                                    <dt class="col-sm-4">Department: </dt>
                                                     <dd class="col-sm-8">
                                                         {{ $user->fdepartment->name }}
                                                     </dd>
@@ -230,7 +228,7 @@
                                                         <h4 class="card-title">
                                                             <a data-toggle="collapse" href="#applicationAcceptance"
                                                                 aria-expanded="true">
-                                                                #2) Application Acceptance Form
+                                                                #2) Grade report
                                                             </a>
                                                         </h4>
                                                         <div class="card-tools">

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Evaluation extends Model
 {
@@ -47,7 +48,15 @@ class Evaluation extends Model
     {
         return $this->hasMany(EvaluationResponse::class, 'evaluation_id');
     }
-
+    /**
+     * Get the Evaluation Responses for this Evaluation
+     *
+     * @return HasMany
+     */
+    public function response(): HasOne
+    {
+        return $this->hasOne(EvaluationResponse::class, 'evaluation_id');
+    }
     /**
      * Get the Department that owns this Evaluation
      *
