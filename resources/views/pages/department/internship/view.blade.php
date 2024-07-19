@@ -51,6 +51,8 @@
                                         <dd class="col-sm-9">{{ $internship->department->name }}</dd>
                                         <dt class="col-sm-3">Title</dt>
                                         <dd class="col-sm-9">{{ $internship->title }}</dd>
+                                        <dt class="col-sm-3">Location:</dt>
+                                        <dd class="col-sm-9">{{ $internship->location }}</dd>
                                         <dt class="col-sm-3">Min CGPA</dt>
                                         <dd class="col-sm-9">{{ $internship->minimum_cgpa }}</dd>
                                         <dt class="col-sm-3">Quota</dt>

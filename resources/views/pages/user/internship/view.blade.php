@@ -56,7 +56,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $internship->department->name }}</h3>
+                        <h3 class="card-title">{{ $internship->department->company->name.' -> '.$internship->department->name }}</h3>
                         <div class="card-tools mr-5">
                             <a href="{{ route('user.home') }}"><button type="button" class="btn btn-tool"><i
                                 class="fas fa-arrow-left"></i>
@@ -72,6 +72,8 @@
                         <p><b>Detail:</b></p>
 
                         <dl class="row">
+                            <dt class="col-sm-3">Location: </dt>
+                            <dd class="col-sm-7">{{ $internship->location }}</dd>
                             <dt class="col-sm-3">Minimum CGPA required: </dt>
                             <dd class="col-sm-7">{{ $internship->minimum_cgpa }}</dd>
                             <dt class="col-sm-3">Available Quota</dt>

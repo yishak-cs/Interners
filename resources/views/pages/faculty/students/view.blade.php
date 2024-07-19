@@ -68,6 +68,8 @@
                                 <p><b>Detail:</b></p>
 
                                 <dl class="row">
+                                    <dt class="col-sm-4">Location: </dt>
+                                    <dd class="col-sm-6">{{ $internship->location }}</dd>
                                     <dt class="col-sm-4">Minimum CGPA required: </dt>
                                     <dd class="col-sm-6">{{ $internship->minimum_cgpa }}</dd>
                                     <dt class="col-sm-4">Available Quota</dt>
@@ -225,7 +227,7 @@
                                                     <h4 class="card-title">
                                                         <a data-toggle="collapse" href="#applicationAcceptance"
                                                             aria-expanded="true">
-                                                            #2) Application Acceptance Form
+                                                            #2) Grade report
                                                         </a>
                                                     </h4>
                                                     <div class="card-tools">

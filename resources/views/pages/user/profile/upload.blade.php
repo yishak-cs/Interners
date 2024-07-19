@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group">
-                <label>Application Acceptance letter</label>
+                <label>Grade Report</label>
                 <input type="file" class="form-control" id="application_acceptance_file_path" name="application_acceptance_file_path"
                     placeholder="Application Letter">
                 @error('application_acceptance_file_path')

@@ -92,15 +92,9 @@ class DashboardController extends Controller
          */
         $application_count['percentage'] = (array_sum(array_values($application_count['lastWeek'])) == 0) ? ((array_sum(array_values($application_count['thisWeek'])) == 0) ? 0 : 100) : round(((array_sum(array_values($application_count['thisWeek'])) - array_sum(array_values($application_count['lastWeek']))) / array_sum(array_values($application_count['lastWeek']))) * 100, 2);
 
-        /**
-         * all pending applications
-         *
-         * @var \App\Models\UserApplication $applications
-         */
-        $applications =  UserApplication::where('status', '0')->get();
 
         // dd($application_count);
-        return view('pages.admin.home', ['applications' => $applications, 'stat_counts' => $stat_counts, 'application_count' => $application_count]);
+        return view('pages.admin.home', ['stat_counts' => $stat_counts, 'application_count' => $application_count]);
     }
 
     /**
