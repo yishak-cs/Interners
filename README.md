@@ -9,8 +9,8 @@
 ### Step 1
 clone this repository
 ``` bash 
-git clone https://github.com/NafMKD/staff-evaluation.git
-cd staff-evaluation
+git clone https://github.com/yishak-cs/Interners.git
+cd Interners
 ```
 ### Step 2
 Install dependencies
