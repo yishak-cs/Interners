@@ -18,7 +18,7 @@ Install dependencies
 composer install 
 ```
 ### Step 3
-Install dependencies
+Install the necessary node modules
 ```bash
 npm install 
 ```
