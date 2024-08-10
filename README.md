@@ -55,7 +55,5 @@ php artisan serve
 ```
 
 ## Contributors
-- [cospionx](https://github.com/caspionx)
-- [nafmkd](https://github.com/NafMKD)
-- [samtcodes](https://github.com/samtcodes)
 - [yishak-cs](https://github.com/yishak-cs)
+- [thomas](https://github.com/rutemul)
