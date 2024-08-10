@@ -12,7 +12,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
         "APP_URL": "https://your.url.from.vercel.app",
         "APP_KEY": "base64:gk0QFmmEcWzGXb9MjZ3VOmucKW7eISjiFdaOuPXcuFQ=",
 
