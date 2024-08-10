@@ -38,11 +38,18 @@ Migrate the schema
 php artisan migrate
 ```
 >_optional_, you can also seed the users table (ADMIN)<br>
-**email** : `admin@gmail.com`<br>
+**email** : `admin@email.com`<br>
 **password** : `12345678`
 >```bash
 >php artisan db:seed
 >```
+### step 6
+set up mailer of your choice and configure in .env file <br>
+*MAIL_HOST* <br>
+*MAIL_PORT* <br>
+*MAIL_USERNAME* <br>
+*MAIL_PASSWORD*
+
 ### Step 6
 to compile frontend assest run
 ```bash
